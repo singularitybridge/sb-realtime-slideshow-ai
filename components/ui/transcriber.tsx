@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import ThreeDotsWave from "@/components/ui/three-dots-wave";
 import { Conversation } from "@/lib/conversations";
-import { useTranslations } from "@/components/translations-context";
 
 /**
 * Avatar building blocks with Radix
@@ -144,8 +143,6 @@ interface TranscriberProps {
 
 export default function Transcriber({ conversation }: TranscriberProps) {
  const scrollRef = React.useRef<HTMLDivElement>(null);
- const { t } = useTranslations();
-
  // Scroll to bottom whenever conversation updates
  React.useEffect(() => {
    if (scrollRef.current) {
@@ -163,7 +160,7 @@ export default function Transcriber({ conversation }: TranscriberProps) {
      {/* Header */}
      <div className="bg-secondary px-4 py-3 flex items-center justify-between dark:bg-secondary">
        <div className="font-medium text-foreground dark:text-foreground">
-        {t('transcriber.title')}
+        Conversation
        </div>
      </div>
 

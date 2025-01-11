@@ -12,36 +12,28 @@ import {
   TableCell,
   TableRow,
 } from "@/components/ui/table"
-import { useTranslations } from "@/components/translations-context"
-
 
 export function ToolsEducation() {
-  const { t } = useTranslations();
-
   const AVAILABLE_TOOLS = [
     {
-      name: t('tools.availableTools.copyFn.name'),
-      description: t('tools.availableTools.copyFn.description'),
+      name: "Copy to Clipboard",
+      description: "Copy text to your clipboard",
     },
     {
-      name: t('tools.availableTools.getTime.name'),
-      description: t('tools.availableTools.getTime.description'),
+      name: "Get Current Time",
+      description: "Get the current time",
     },
     {
-      name: t('tools.availableTools.themeSwitcher.name'),
-      description: t('tools.availableTools.themeSwitcher.description'),
+      name: "Party Mode",
+      description: "Start a celebration with confetti",
     },
     {
-      name: t('tools.availableTools.partyMode.name'),
-      description: t('tools.availableTools.partyMode.description'),
+      name: "Launch Website",
+      description: "Open a website in a new tab",
     },
     {
-      name: t('tools.availableTools.launchWebsite.name'),
-      description: t('tools.availableTools.launchWebsite.description'),
-    },
-    {
-      name: t('tools.availableTools.scrapeWebsite.name'),
-      description: t('tools.availableTools.scrapeWebsite.description'),
+      name: "Scrape Website",
+      description: "Extract content from a website",
     },
   ] as const;
 
@@ -49,7 +41,7 @@ export function ToolsEducation() {
     <div className="w-full max-w-lg mt-4">
       <Accordion type="single" collapsible>
         <AccordionItem value="tools">
-          <AccordionTrigger>{t('tools.availableTools.title')}</AccordionTrigger>
+          <AccordionTrigger>Available Tools</AccordionTrigger>
           <AccordionContent>
             <Table>
               <TableBody>
@@ -68,4 +60,4 @@ export function ToolsEducation() {
       </Accordion>
     </div>
   )
-} 
+}

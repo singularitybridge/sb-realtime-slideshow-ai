@@ -1,13 +1,7 @@
 export const siteConfig = {
-  name: "OpenAI Realtime Starter",
+  name: "OpenAI Realtime API Demo",
   url: "https://openai-rt-shadcn.vercel.app",
-  description: "OpenAI Realtime Starter is a template for Realtime Voice AI with Shadcn UI components. It demonstrates tool calling with a WebRTC hook.",
-  author: "cameronking4",
-  links: {
-    twitter: "https://x.com/cameronyking4",
-    github: "https://github.com/cameronking4/shadcn-openai-realtime-api",
-    portfolio: "https://www.linkedin.com/in/cameronyking",
-  }
+  description: "A streamlined demo of OpenAI's Realtime API using WebRTC for real-time voice AI applications."
 };
 
 export type SiteConfig = typeof siteConfig;

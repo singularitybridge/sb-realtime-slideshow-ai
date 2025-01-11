@@ -22,7 +22,6 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useState } from "react"
 import { Terminal } from "lucide-react"
-import { useTranslations } from "@/components/translations-context"
 
 function FilterControls({
   typeFilter,
@@ -39,8 +38,6 @@ function FilterControls({
   messageTypes: string[]
   messages: MessageType[]
 }) {
-  const { t } = useTranslations();
-
   return (
     <div className="flex gap-4 mb-4">
       <Select value={typeFilter} onValueChange={setTypeFilter}>
@@ -56,21 +53,20 @@ function FilterControls({
         </SelectContent>
       </Select>
       <Input
-        placeholder={t('messageControls.search')}
+        placeholder="Search messages..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="flex-1"
       />
       <Button variant="outline" onClick={() => console.log(messages)}>
         <Terminal />
-        {t('messageControls.log')}
+        Log Messages
       </Button>
     </div>
   )
 }
 
 export function MessageControls({ conversation, msgs }: { conversation: Conversation[], msgs: MessageType[] }) {
-  const { t } = useTranslations();
   const [typeFilter, setTypeFilter] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
   
@@ -90,16 +86,16 @@ export function MessageControls({ conversation, msgs }: { conversation: Conversa
   return (
     <div className="space-y-2">
       <div className="flex justify-between items-center">
-        <h3 className="text-sm font-medium">{t('messageControls.logs')}</h3>
+        <h3 className="text-sm font-medium">Message Logs</h3>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline" size="sm">
-              {t('messageControls.view')}
+              View Logs
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-full p-4 mx-auto overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>{t('messageControls.logs')}</DialogTitle>
+              <DialogTitle>Message Logs</DialogTitle>
             </DialogHeader>
             <FilterControls
               typeFilter={typeFilter}
@@ -114,8 +110,8 @@ export function MessageControls({ conversation, msgs }: { conversation: Conversa
               <Table className="max-w-full">
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t('messageControls.type')}</TableHead>
-                    <TableHead>{t('messageControls.content')}</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Content</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -138,4 +134,4 @@ export function MessageControls({ conversation, msgs }: { conversation: Conversa
       <Transcriber conversation={conversation.slice(-1)} />
     </div>
   )
-} 
+}

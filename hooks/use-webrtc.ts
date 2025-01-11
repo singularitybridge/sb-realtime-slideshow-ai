@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Conversation } from "@/lib/conversations";
-import { useTranslations } from "@/components/translations-context";
 
 import { Message } from "@/types";
 
@@ -109,7 +108,6 @@ export default function useWebRTCAudioSession(
   voice: string,
   tools?: Tool[],
 ): UseWebRTCAudioSessionReturn {
-  const { t, locale } = useTranslations();
   // Connection/session states
   const [status, setStatus] = useState("");
   const [isSessionActive, setIsSessionActive] = useState(false);
@@ -169,14 +167,12 @@ export default function useWebRTCAudioSession(
     dataChannel.send(JSON.stringify(sessionUpdate));
 
     console.log("Session update sent:", sessionUpdate);
-    console.log("Setting locale: " + t("language") + " : " + locale);
-
-    // Send language preference message
+    // Send initial message
     const languageMessage = {
       type: "conversation.item.create",
       item: {
         type: "text",
-        text: t("languagePrompt"),
+        text: "Hello! I'm ready to help you. Feel free to speak or ask any questions.",
       },
     };
     dataChannel.send(JSON.stringify(languageMessage));

@@ -3,19 +3,16 @@
 import { toast } from "sonner"
 import confetti from 'canvas-confetti'
 import { animate as framerAnimate } from "framer-motion"
-import { useTranslations } from "@/components/translations-context"
 import FirecrawlApp, { ScrapeResponse } from '@mendable/firecrawl-js';
 
 export const useToolsFunctions = () => {
-  const { t } = useTranslations();
-
   const timeFunction = () => {
     const now = new Date()
     return {
       success: true,
       time: now.toLocaleTimeString(),
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      message: t('tools.time') + now.toLocaleTimeString() + " in " + Intl.DateTimeFormat().resolvedOptions().timeZone + " timezone."
+      message: "Current time is " + now.toLocaleTimeString() + " in " + Intl.DateTimeFormat().resolvedOptions().timeZone + " timezone."
     }
   }
 
@@ -29,18 +26,18 @@ export const useToolsFunctions = () => {
       html.classList.add(newTheme);
 
       toast(`Switched to ${newTheme} mode! 🌓`, {
-        description: t('tools.switchTheme') + newTheme + ".",
+        description: "Switched theme to " + newTheme + ".",
       })
 
       return { 
         success: true, 
         theme: newTheme,
-        message: t('tools.switchTheme') + newTheme + "."
+        message: "Switched theme to " + newTheme + "."
       };
     } catch (error) {
       return { 
         success: false, 
-        message: t('tools.themeFailed') + ": " + error 
+        message: "Failed to switch theme: " + error 
       };
     }
   }
@@ -127,19 +124,19 @@ export const useToolsFunctions = () => {
       }
 
       animate()
-      toast.success(t('tools.partyMode.toast') + " 🎉", {
-        description: t('tools.partyMode.description'),
+      toast.success("Party Mode Activated! 🎉", {
+        description: "Get ready for some fun animations and confetti!",
       })
-      return { success: true, message: t('tools.partyMode.success') + " 🎉" }
+      return { success: true, message: "Party mode activated! Time to celebrate! 🎉" }
     } catch (error) {
-      return { success: false, message: t('tools.partyMode.failed') + ": " + error }
+      return { success: false, message: "Failed to start party mode: " + error }
     }
   }
 
   const launchWebsite = ({ url }: { url: string }) => {
     window.open(url, '_blank')
-    toast(t('tools.launchWebsite') + " 🌐", {
-      description: t('tools.launchWebsiteSuccess') + url + ", tell the user it's been launched.",
+    toast("Opening Website 🌐", {
+      description: "Opening " + url + " in a new tab.",
     })
     return {
       success: true,
@@ -149,13 +146,13 @@ export const useToolsFunctions = () => {
 
   const copyToClipboard = ({ text }: { text: string }) => {
     navigator.clipboard.writeText(text)
-    toast(t('tools.clipboard.toast') + " 📋", {
-      description: t('tools.clipboard.description'),
+    toast("Copied to Clipboard 📋", {
+      description: "Text has been copied to your clipboard.",
     })
     return {
       success: true,
       text,
-      message: t('tools.clipboard.success')
+      message: "Successfully copied text to clipboard"
     }
   }
 
@@ -173,8 +170,8 @@ export const useToolsFunctions = () => {
         };
       }
 
-      toast.success(t('tools.scrapeWebsite.toast') + " 📋", {
-        description: t('tools.scrapeWebsite.success'),
+      toast.success("Website Scraped 📋", {
+        description: "Successfully scraped website content.",
       })
     
       return {
