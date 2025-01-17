@@ -13,6 +13,10 @@ interface Tool {
 }
 
 const toolDefinitions = {
+    getCurrentSlide: {
+        description: 'Gets the content of the current slide including title, description, and key points',
+        parameters: {}
+    },
     nextSlide: {
         description: 'Moves to the next slide in the presentation. Returns an error if already at the last slide.',
         parameters: {}

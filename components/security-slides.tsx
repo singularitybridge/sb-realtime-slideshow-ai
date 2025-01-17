@@ -72,11 +72,12 @@ const slides: Slide[] = [
 ];
 
 export const SecuritySlides = () => {
-  const { currentSlide, nextSlide, prevSlide, setTotalSlides } = useSlideStore();
+  const { currentSlide, nextSlide, prevSlide, setTotalSlides, setSlides } = useSlideStore();
 
   useEffect(() => {
     setTotalSlides(slides.length);
-  }, [setTotalSlides]);
+    setSlides(slides);
+  }, [setTotalSlides, setSlides]);
 
   return (
     <div className="h-full flex flex-col p-4">

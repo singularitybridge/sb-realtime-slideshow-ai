@@ -34,6 +34,7 @@ const App: React.FC = () => {
     // Register all functions by iterating over the object
     Object.entries(toolsFunctions).forEach(([name, func]) => {
       const functionNames: Record<string, string> = {
+        getCurrentSlideFunction: 'getCurrentSlide',
         nextSlideFunction: 'nextSlide',
         prevSlideFunction: 'prevSlide',
         timeFunction: 'getCurrentTime',

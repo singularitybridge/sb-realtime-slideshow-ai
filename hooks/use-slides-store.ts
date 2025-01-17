@@ -1,14 +1,28 @@
 import { create } from 'zustand'
 
+interface SlideBlock {
+  title: string
+  content: string
+}
+
+interface Slide {
+  title: string
+  description: string
+  blocks: SlideBlock[]
+}
+
 interface SlideState {
   currentSlide: number
   totalSlides: number
+  slides: Slide[]
   nextSlide: () => void
   prevSlide: () => void
   setTotalSlides: (total: number) => void
+  setSlides: (slides: Slide[]) => void
+  getCurrentSlideContent: () => Slide | null
 }
 
-export const useSlideStore = create<SlideState>((set) => ({
+export const useSlideStore = create<SlideState>((set, get) => ({
   currentSlide: 0,
   totalSlides: 0,
   nextSlide: () => set((state) => {
@@ -23,5 +37,11 @@ export const useSlideStore = create<SlideState>((set) => ({
     }
     return { currentSlide: state.currentSlide - 1 } as Partial<SlideState>
   }),
-  setTotalSlides: (total: number) => set({ totalSlides: total } as Partial<SlideState>)
+  slides: [],
+  setTotalSlides: (total: number) => set({ totalSlides: total } as Partial<SlideState>),
+  setSlides: (slides: Slide[]) => set({ slides } as Partial<SlideState>),
+  getCurrentSlideContent: () => {
+    const state = get()
+    return state.slides[state.currentSlide] || null
+  }
 }))

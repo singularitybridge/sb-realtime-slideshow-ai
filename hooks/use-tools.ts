@@ -6,7 +6,31 @@ import confetti from 'canvas-confetti'
 import { animate as framerAnimate } from "framer-motion"
 
 export const useToolsFunctions = () => {
-  const { nextSlide: next, prevSlide: prev, currentSlide, totalSlides } = useSlideStore()
+  const { nextSlide: next, prevSlide: prev, currentSlide, totalSlides, getCurrentSlideContent } = useSlideStore()
+
+  const getCurrentSlideFunction = () => {
+    const slide = getCurrentSlideContent()
+    if (!slide) {
+      return {
+        success: false,
+        message: "No slide content available"
+      }
+    }
+
+    const formattedBlocks = slide.blocks.map(block => 
+      `${block.title}:\n${block.content}`
+    ).join('\n\n')
+
+    return {
+      success: true,
+      content: {
+        title: slide.title,
+        description: slide.description,
+        blocks: formattedBlocks
+      },
+      message: `Current slide (${currentSlide + 1}/${totalSlides}):\n\nTitle: ${slide.title}\n\nDescription: ${slide.description}\n\nKey Points:\n${formattedBlocks}`
+    }
+  }
 
   const nextSlideFunction = () => {
     if (currentSlide >= totalSlides - 1) {
@@ -193,6 +217,7 @@ export const useToolsFunctions = () => {
   }
 
   return {
+    getCurrentSlideFunction,
     nextSlideFunction,
     prevSlideFunction,
     timeFunction,

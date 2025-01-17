@@ -16,6 +16,10 @@ import {
 export function ToolsEducation() {
   const AVAILABLE_TOOLS = [
     {
+      name: "Get Current Slide",
+      description: "Get the content of the current slide including title, description, and key points"
+    },
+    {
       name: "Next Slide",
       description: "Move to the next slide in the presentation",
     },
