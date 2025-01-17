@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Raleway } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner"
 import { Analytics } from "@vercel/analytics/react"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const raleway = Raleway({
+  variable: "--font-raleway",
   subsets: ["latin"],
 });
 
@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-dvh bg-background font-sans antialiased",
-          geistSans.variable
+          raleway.variable
         )}
       >
         <div className="relative flex min-h-dvh flex-col bg-background items-center">
