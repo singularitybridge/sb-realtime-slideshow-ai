@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSlideStore } from '@/hooks/use-slides-store';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -71,15 +72,11 @@ const slides: Slide[] = [
 ];
 
 export const SecuritySlides = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const { currentSlide, nextSlide, prevSlide, setTotalSlides } = useSlideStore();
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+  useEffect(() => {
+    setTotalSlides(slides.length);
+  }, [setTotalSlides]);
 
   return (
     <div className="h-full flex flex-col p-4">

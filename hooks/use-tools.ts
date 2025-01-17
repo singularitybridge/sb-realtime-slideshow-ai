@@ -1,10 +1,47 @@
 "use client"
 
 import { toast } from "sonner"
+import { useSlideStore } from "@/hooks/use-slides-store"
 import confetti from 'canvas-confetti'
 import { animate as framerAnimate } from "framer-motion"
 
 export const useToolsFunctions = () => {
+  const { nextSlide: next, prevSlide: prev, currentSlide, totalSlides } = useSlideStore()
+
+  const nextSlideFunction = () => {
+    if (currentSlide >= totalSlides - 1) {
+      return {
+        success: false,
+        message: "Already at the last slide."
+      }
+    }
+    next()
+    toast("Next Slide →", {
+      description: `Moved to slide ${currentSlide + 2} of ${totalSlides}`,
+    })
+    return {
+      success: true,
+      message: `Moved to slide ${currentSlide + 2} of ${totalSlides}`
+    }
+  }
+
+  const prevSlideFunction = () => {
+    if (currentSlide <= 0) {
+      return {
+        success: false,
+        message: "Already at the first slide."
+      }
+    }
+    prev()
+    toast("← Previous Slide", {
+      description: `Moved to slide ${currentSlide} of ${totalSlides}`,
+    })
+    return {
+      success: true,
+      message: `Moved to slide ${currentSlide} of ${totalSlides}`
+    }
+  }
+
   const timeFunction = () => {
     const now = new Date()
     return {
@@ -156,6 +193,8 @@ export const useToolsFunctions = () => {
   }
 
   return {
+    nextSlideFunction,
+    prevSlideFunction,
     timeFunction,
     backgroundFunction,
     partyFunction,

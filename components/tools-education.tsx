@@ -16,6 +16,14 @@ import {
 export function ToolsEducation() {
   const AVAILABLE_TOOLS = [
     {
+      name: "Next Slide",
+      description: "Move to the next slide in the presentation",
+    },
+    {
+      name: "Previous Slide",
+      description: "Move to the previous slide in the presentation",
+    },
+    {
       name: "Copy to Clipboard",
       description: "Copy text to your clipboard",
     },

@@ -13,6 +13,14 @@ interface Tool {
 }
 
 const toolDefinitions = {
+    nextSlide: {
+        description: 'Moves to the next slide in the presentation. Returns an error if already at the last slide.',
+        parameters: {}
+    },
+    prevSlide: {
+        description: 'Moves to the previous slide in the presentation. Returns an error if already at the first slide.',
+        parameters: {}
+    },
     getCurrentTime: {
         description: 'Gets the current time in the user\'s timezone',
         parameters: {}
