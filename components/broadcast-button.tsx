@@ -18,7 +18,7 @@ export function BroadcastButton({ isSessionActive, onClick }: BroadcastButtonPro
           Live
         </Badge>
       )}
-      {isSessionActive ? "End Broadcast" : "Start Broadcast"}
+      {isSessionActive ? "Disconnect" : "Start"}
     </Button>
   )
 }

@@ -92,7 +92,7 @@ export const SecuritySlides = () => {
         >
           <div className="flex flex-col h-full">
             <div className="mb-12">
-              <h1 className="text-3xl font-bold mb-4 text-primary">{slides[currentSlide].title}</h1>
+              <h1 className="text-3xl font-bold mb-6 text-primary">{slides[currentSlide].title}</h1>
               <p className="text-lg leading-relaxed text-gray-600">{slides[currentSlide].description}</p>
             </div>
             
