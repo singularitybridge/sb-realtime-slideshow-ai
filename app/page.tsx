@@ -53,7 +53,7 @@ const App: React.FC = () => {
     <main className="h-screen p-8">
       <div className="h-full grid grid-cols-3 gap-8">
         <motion.div 
-          className="col-span-2 bg-white rounded-lg shadow-xl overflow-hidden"
+          className="col-span-2 overflow-hidden"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}

@@ -111,7 +111,7 @@ export const SecuritySlides = () => {
                       <div className="w-8 h-8 mb-2 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
                         <span className="text-lg font-semibold text-primary">{index + 1}</span>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-800 group-hover:text-primary transition-colors">
+                      <h3 className="text-lg font-semibold text-slate-500 group-hover:text-primary transition-colors">
                         {block.title}
                       </h3>
                     </div>
@@ -130,17 +130,30 @@ export const SecuritySlides = () => {
       <div className="flex justify-between items-center h-12 px-4 py-8">
         <Button
           onClick={prevSlide}
-          variant="secondary"
+          variant="outline-purple"
           disabled={currentSlide === 0}
         >
           Previous
         </Button>
-        <span className="text-sm text-gray-500">
-          {currentSlide + 1} / {slides.length}
-        </span>
+        
+        <div className="flex items-center gap-3">
+          {slides.map((_, index) => (
+            <div
+              key={index}
+              className={`w-8 h-8 flex items-center justify-center rounded-full text-base font-medium transition-all
+                ${currentSlide === index 
+                  ? 'border border-purple-500 text-purple-500 bg-white' 
+                  : 'text-gray-500'
+                }`}
+            >
+              {index + 1}
+            </div>
+          ))}
+        </div>
+
         <Button
           onClick={nextSlide}
-          variant="secondary"
+          variant="outline-purple"
           disabled={currentSlide === slides.length - 1}
         >
           Next
