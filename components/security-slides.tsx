@@ -2,6 +2,17 @@ import React, { useEffect } from 'react';
 import { useSlideStore } from '@/hooks/use-slides-store';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  MagnifyingGlassIcon,
+  ShieldExclamationIcon,
+  ClipboardDocumentCheckIcon,
+  DocumentTextIcon,
+  ComputerDesktopIcon,
+  ChartBarIcon,
+  AdjustmentsHorizontalIcon,
+  RocketLaunchIcon,
+  ArrowPathIcon,
+} from '@heroicons/react/24/outline';
 
 interface SlideBlock {
   title: string;
@@ -98,29 +109,40 @@ export const SecuritySlides = () => {
             
             <div className="mt-auto mb-6">
               <div className="grid grid-cols-3 gap-6">
-              {slides[currentSlide].blocks.map((block, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2 }}
-                  className="group bg-white hover:bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200"
-                >
-                  <div className="flex flex-col h-full">
-                    <div className="mb-3">
-                      <div className="w-8 h-8 mb-2 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                        <span className="text-lg font-semibold text-primary">{index + 1}</span>
+              {slides[currentSlide].blocks.map((block, index) => {
+                const icons = [
+                  [MagnifyingGlassIcon, ShieldExclamationIcon, ClipboardDocumentCheckIcon],
+                  [DocumentTextIcon, ComputerDesktopIcon, ChartBarIcon],
+                  [AdjustmentsHorizontalIcon, RocketLaunchIcon, ArrowPathIcon]
+                ];
+                const Icon = icons[currentSlide][index];
+                
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2 }}
+                    className="group bg-white hover:bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200"
+                  >
+                    <div className="flex flex-col h-full">
+                      <div className="mb-3">
+                        <div className="flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                            <Icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <h3 className="text-lg font-semibold text-slate-500 group-hover:text-primary transition-colors">
+                            {block.title}
+                          </h3>
+                        </div>
                       </div>
-                      <h3 className="text-lg font-semibold text-slate-500 group-hover:text-primary transition-colors">
-                        {block.title}
-                      </h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {block.content}
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {block.content}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
               </div>
             </div>
           </div>
