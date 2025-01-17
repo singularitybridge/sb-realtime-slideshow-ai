@@ -3,7 +3,6 @@
 import { toast } from "sonner"
 import confetti from 'canvas-confetti'
 import { animate as framerAnimate } from "framer-motion"
-import FirecrawlApp, { ScrapeResponse } from '@mendable/firecrawl-js';
 
 export const useToolsFunctions = () => {
   const timeFunction = () => {
@@ -156,43 +155,11 @@ export const useToolsFunctions = () => {
     }
   }
 
-  const scrapeWebsite = async ({ url }: { url: string }) => {
-    const apiKey = process.env.NEXT_PUBLIC_FIRECRAWL_API_KEY;
-    try {
-      const app = new FirecrawlApp({ apiKey: apiKey });
-      const scrapeResult = await app.scrapeUrl(url, { formats: ['markdown', 'html'] }) as ScrapeResponse;
-
-      if (!scrapeResult.success) {
-        console.log(scrapeResult.error)
-        return {
-          success: false,
-          message: `Failed to scrape: ${scrapeResult.error}`
-        };
-      }
-
-      toast.success("Website Scraped 📋", {
-        description: "Successfully scraped website content.",
-      })
-    
-      return {
-        success: true,
-        message: "Here is the scraped website content: " + JSON.stringify(scrapeResult.markdown) + "Summarize and explain it to the user now in a response."
-      };
-
-    } catch (error) {
-      return {
-        success: false,
-        message: `Error scraping website: ${error}`
-      };
-    }
-  }
-
   return {
     timeFunction,
     backgroundFunction,
     partyFunction,
     launchWebsite,
-    copyToClipboard,
-    scrapeWebsite
+    copyToClipboard
   }
 }
