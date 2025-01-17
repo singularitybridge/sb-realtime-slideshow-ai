@@ -80,7 +80,7 @@ export const SecuritySlides = () => {
   }, [setTotalSlides, setSlides]);
 
   return (
-    <div className="h-full flex flex-col p-4">
+    <div className="h-full flex flex-col p-8">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -91,8 +91,8 @@ export const SecuritySlides = () => {
           className="h-[calc(100%-3rem)]"
         >
           <div className="flex flex-col h-full">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold mb-4">{slides[currentSlide].title}</h1>
+            <div className="mb-12">
+              <h1 className="text-3xl font-bold mb-4 text-primary">{slides[currentSlide].title}</h1>
               <p className="text-lg leading-relaxed text-gray-600">{slides[currentSlide].description}</p>
             </div>
             
@@ -108,10 +108,10 @@ export const SecuritySlides = () => {
                 >
                   <div className="flex flex-col h-full">
                     <div className="mb-3">
-                      <div className="w-8 h-8 mb-2 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                        <span className="text-lg font-semibold text-blue-600/80">{index + 1}</span>
+                      <div className="w-8 h-8 mb-2 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                        <span className="text-lg font-semibold text-primary">{index + 1}</span>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-lg font-semibold text-gray-800 group-hover:text-primary transition-colors">
                         {block.title}
                       </h3>
                     </div>
@@ -127,10 +127,10 @@ export const SecuritySlides = () => {
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex justify-between items-center h-12">
+      <div className="flex justify-between items-center h-12 px-4 py-8">
         <Button
           onClick={prevSlide}
-          variant="outline"
+          variant="secondary"
           disabled={currentSlide === 0}
         >
           Previous
@@ -140,7 +140,7 @@ export const SecuritySlides = () => {
         </span>
         <Button
           onClick={nextSlide}
-          variant="outline"
+          variant="secondary"
           disabled={currentSlide === slides.length - 1}
         >
           Next
