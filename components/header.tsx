@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
 
 export function Header() {
@@ -12,32 +10,7 @@ export function Header() {
       transition={{ duration: 0.4 }}
       className="w-full sticky top-0 z-50 border-b bg-background"
     >
-      <div className="container mx-auto px-4 h-12 flex items-center justify-between gap-2">
-        <motion.nav
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="flex items-center"
-        >
-          <Link href="/" className="flex gap-3 items-center">
-            <motion.h1 
-              className="text-lg font-medium tracking-tighter flex gap-1 items-center"
-              whileHover={{ scale: 1.02 }}
-            >
-              OpenAI Realtime API
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <Badge variant="outline" className="text-normal">
-                beta
-              </Badge>
-            </motion.div>
-          </Link>
-        </motion.nav>
-      </div>
+      <div className="h-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10" />
     </motion.header>
   );
 }
