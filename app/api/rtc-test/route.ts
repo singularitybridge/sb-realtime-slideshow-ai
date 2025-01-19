@@ -4,8 +4,8 @@ export async function POST() {
     try {        
         if (!process.env.OPENAI_API_KEY){
             throw new Error(`OPENAI_API_KEY is not set`);
-
         }
+        
         const response = await fetch("https://api.openai.com/v1/realtime/sessions", {
             method: "POST",
             headers: {
@@ -21,12 +21,10 @@ export async function POST() {
         });
 
         if (!response.ok) {
-            throw new Error(`API request failed with status ${JSON.stringify(response)}`);
+            throw new Error(`API request failed with status ${response.status}`);
         }
 
         const data = await response.json();
-
-        // Return the JSON response to the client
         return NextResponse.json(data);
     } catch (error) {
         console.error("Error fetching session data:", error);

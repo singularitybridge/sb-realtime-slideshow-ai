@@ -158,6 +158,7 @@ export default function useWebRTCAudioSession(
       type: "session.update",
       session: {
         modalities: ["text", "audio"],
+        voice,
         tools: tools || [],
         input_audio_transcription: {
           model: "whisper-1",
@@ -167,15 +168,6 @@ export default function useWebRTCAudioSession(
     dataChannel.send(JSON.stringify(sessionUpdate));
 
     console.log("Session update sent:", sessionUpdate);
-    // Send initial message
-    const languageMessage = {
-      type: "conversation.item.create",
-      item: {
-        type: "text",
-        text: "Hello! I'm ready to help you. Feel free to speak or ask any questions.",
-      },
-    };
-    dataChannel.send(JSON.stringify(languageMessage));
   }
 
   /**
@@ -473,9 +465,10 @@ export default function useWebRTCAudioSession(
       const pc = new RTCPeerConnection();
       peerConnectionRef.current = pc;
 
-      // Hidden <audio> element for inbound assistant TTS
+      // Create and attach audio element to DOM for inbound assistant TTS
       const audioEl = document.createElement("audio");
       audioEl.autoplay = true;
+      document.body.appendChild(audioEl);
 
       // Inbound track => assistant's TTS
       pc.ontrack = (event) => {
@@ -514,8 +507,8 @@ export default function useWebRTCAudioSession(
 
       // Send SDP offer to OpenAI Realtime
       const baseUrl = "https://api.openai.com/v1/realtime";
-      const model = "gpt-4o-audio-preview";
-      const response = await fetch(`${baseUrl}?model=${model}&voice=${voice}`, {
+      const model = "gpt-4o-realtime-preview-2024-12-17";
+      const response = await fetch(`${baseUrl}?model=${model}`, {
         method: "POST",
         body: offer.sdp,
         headers: {
