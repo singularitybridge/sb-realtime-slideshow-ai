@@ -9,6 +9,7 @@ import { AvatarInfo } from "@/components/avatar-info"
 import { StatusDisplay } from "@/components/status"
 import { TokenUsageDisplay } from "@/components/token-usage"
 import { MessageControls } from "@/components/message-controls"
+import { MessageLogs } from "@/components/message-logs"
 import { ToolsEducation } from "@/components/tools-education"
 import { motion } from "framer-motion"
 import { useToolsFunctions } from "@/hooks/use-tools"
@@ -60,38 +61,50 @@ const App: React.FC = () => {
         </motion.div>
 
         <motion.div
-          className="col-span-1 bg-white rounded-lg shadow-xl overflow-hidden"
+          className="col-span-1 overflow-hidden"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         >
-          <div className="p-6 space-y-4">
-            <AvatarInfo />
-            <div className="flex flex-col items-center gap-4">
-              <BroadcastButton 
-                isSessionActive={isSessionActive} 
-                onClick={handleStartStopClick}
-              />
+          <div className="p-6 flex flex-col h-full">
+            {/* Top Section */}
+            <div className="space-y-4">
+              <AvatarInfo />
+              <div className="flex flex-col items-center">
+                <BroadcastButton 
+                  isSessionActive={isSessionActive} 
+                  onClick={handleStartStopClick}
+                />
+              </div>
             </div>
-            
-            {msgs.length > 4 && <TokenUsageDisplay messages={msgs} />}
-            
+
+            {/* First Separator */}
+            <div className="h-px bg-border my-6" />
+
+            {/* Conversation Section */}
             {status && (
               <motion.div 
-                className="w-full flex flex-col gap-2"
+                className="flex-grow overflow-hidden"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <MessageControls conversation={conversation} msgs={msgs} />
+                <MessageControls conversation={conversation} />
               </motion.div>
             )}
-            
-            {status && <StatusDisplay status={status} />}
-            
-            <div className="w-full flex flex-col items-center gap-4">
-              <ToolsEducation />
+
+            {/* Second Separator */}
+            <div className="h-px bg-border my-6" />
+
+            {/* Bottom Section */}
+            <div className="space-y-4">
+              {msgs.length > 4 && <TokenUsageDisplay messages={msgs} />}
+              {status && <MessageLogs msgs={msgs} />}
+              {status && <StatusDisplay status={status} />}
+              <div className="w-full">
+                <ToolsEducation />
+              </div>
             </div>
           </div>
         </motion.div>
