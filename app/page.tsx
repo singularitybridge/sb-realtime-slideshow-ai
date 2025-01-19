@@ -7,10 +7,7 @@ import { openAIConfig } from "@/config/openai"
 import { BroadcastButton } from "@/components/broadcast-button"
 import { AvatarInfo } from "@/components/avatar-info"
 import { StatusDisplay } from "@/components/status"
-import { TokenUsageDisplay } from "@/components/token-usage"
 import { MessageControls } from "@/components/message-controls"
-import { MessageLogs } from "@/components/message-logs"
-import { ToolsEducation } from "@/components/tools-education"
 import { motion } from "framer-motion"
 import { useToolsFunctions } from "@/hooks/use-tools"
 import { SecuritySlides } from "@/components/security-slides"
@@ -22,7 +19,6 @@ const App: React.FC = () => {
     isSessionActive,
     registerFunction,
     handleStartStopClick,
-    msgs,
     conversation
   } = useWebRTCAudioSession(openAIConfig.voice, tools)
 
@@ -78,11 +74,10 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* First Separator */}
-            <div className="h-px bg-border my-6" />
-
             {/* Conversation Section */}
             {status && (
+              <>
+                <div className="h-px bg-border my-6" />
               <motion.div 
                 className="flex-grow overflow-hidden"
                 initial={{ opacity: 0, height: 0 }}
@@ -92,19 +87,12 @@ const App: React.FC = () => {
               >
                 <MessageControls conversation={conversation} />
               </motion.div>
+              </>
             )}
-
-            {/* Second Separator */}
-            <div className="h-px bg-border my-6" />
 
             {/* Bottom Section */}
             <div className="space-y-4">
-              {msgs.length > 4 && <TokenUsageDisplay messages={msgs} />}
-              {status && <MessageLogs msgs={msgs} />}
               {status && <StatusDisplay status={status} />}
-              <div className="w-full">
-                <ToolsEducation />
-              </div>
             </div>
           </div>
         </motion.div>
