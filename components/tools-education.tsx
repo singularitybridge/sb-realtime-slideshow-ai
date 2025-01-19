@@ -12,6 +12,7 @@ import {
   TableCell,
   TableRow,
 } from "@/components/ui/table"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export function ToolsEducation() {
   const AVAILABLE_TOOLS = [
@@ -55,18 +56,20 @@ export function ToolsEducation() {
         <AccordionItem value="tools">
           <AccordionTrigger>Available Tools</AccordionTrigger>
           <AccordionContent>
-            <Table>
-              <TableBody>
-                {AVAILABLE_TOOLS.map((tool) => (
-                  <TableRow key={tool.name}>
-                    <TableCell className="font-medium">{tool.name}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {tool.description}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <ScrollArea className="h-[300px] pr-4">
+              <Table>
+                <TableBody>
+                  {AVAILABLE_TOOLS.map((tool) => (
+                    <TableRow key={tool.name}>
+                      <TableCell className="font-medium">{tool.name}</TableCell>
+                      <TableCell className="text-sm text-muted-foreground">
+                        {tool.description}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </ScrollArea>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

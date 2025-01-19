@@ -1,10 +1,11 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import useWebRTCAudioSession from "@/hooks/use-webrtc"
 import { tools } from "@/lib/tools"
-import { VoiceSelector } from "@/components/voice-select"
+import { openAIConfig } from "@/config/openai"
 import { BroadcastButton } from "@/components/broadcast-button"
+import { AvatarInfo } from "@/components/avatar-info"
 import { StatusDisplay } from "@/components/status"
 import { TokenUsageDisplay } from "@/components/token-usage"
 import { MessageControls } from "@/components/message-controls"
@@ -14,10 +15,7 @@ import { useToolsFunctions } from "@/hooks/use-tools"
 import { SecuritySlides } from "@/components/security-slides"
 
 const App: React.FC = () => {
-  // State for voice selection
-  const [voice, setVoice] = useState("ash")
-
-  // WebRTC Audio Session Hook
+  // WebRTC Audio Session Hook with fixed voice from config
   const {
     status,
     isSessionActive,
@@ -25,7 +23,7 @@ const App: React.FC = () => {
     handleStartStopClick,
     msgs,
     conversation
-  } = useWebRTCAudioSession(voice, tools)
+  } = useWebRTCAudioSession(openAIConfig.voice, tools)
 
   // Get all tools functions
   const toolsFunctions = useToolsFunctions();
@@ -68,8 +66,7 @@ const App: React.FC = () => {
           transition={{ delay: 0.2, duration: 0.4 }}
         >
           <div className="p-6 space-y-4">
-            <VoiceSelector value={voice} onValueChange={setVoice} />
-            
+            <AvatarInfo />
             <div className="flex flex-col items-center gap-4">
               <BroadcastButton 
                 isSessionActive={isSessionActive} 
