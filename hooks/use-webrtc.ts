@@ -92,6 +92,7 @@ interface UseWebRTCAudioSessionReturn {
   status: string;
   isSessionActive: boolean;
   audioIndicatorRef: React.RefObject<HTMLDivElement | null>;
+  audioStreamRef: React.MutableRefObject<MediaStream | null>;
   startSession: () => Promise<void>;
   stopSession: () => void;
   handleStartStopClick: () => void;
@@ -589,6 +590,7 @@ export default function useWebRTCAudioSession(
     status,
     isSessionActive,
     audioIndicatorRef,
+    audioStreamRef,
     startSession,
     stopSession,
     handleStartStopClick,

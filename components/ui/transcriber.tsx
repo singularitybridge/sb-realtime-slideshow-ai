@@ -86,13 +86,6 @@ export default function Transcriber({ conversation }: TranscriberProps) {
 
  return (
    <div className="flex flex-col w-full h-full mx-auto overflow-hidden">
-     {/* Header */}
-     <div className="px-4 py-3 flex items-center justify-between">
-       <div className="font-medium text-foreground dark:text-foreground">
-        Conversation
-       </div>
-     </div>
-
      {/* Body */}
      <div
        ref={scrollRef}

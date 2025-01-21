@@ -8,6 +8,7 @@ import { BroadcastButton } from "@/components/broadcast-button"
 import { AvatarInfo } from "@/components/avatar-info"
 import { StatusDisplay } from "@/components/status"
 import { MessageControls } from "@/components/message-controls"
+import { MuteButton } from "@/components/mute-button"
 import { motion } from "framer-motion"
 import { useToolsFunctions } from "@/hooks/use-tools"
 import { SecuritySlides } from "@/components/security-slides"
@@ -19,7 +20,8 @@ const App: React.FC = () => {
     isSessionActive,
     registerFunction,
     handleStartStopClick,
-    conversation
+    conversation,
+    audioStreamRef
   } = useWebRTCAudioSession(openAIConfig.voice, tools)
 
   // Get all tools functions
@@ -66,33 +68,39 @@ const App: React.FC = () => {
             {/* Top Section */}
             <div className="space-y-4">
               <AvatarInfo />
+            </div>
+
+            {/* Conversation Section */}
+            {isSessionActive && (
+              <>
+                <div className="h-px bg-border my-6" />
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-light">Conversation</h2>
+                  {isSessionActive && (
+                    <MuteButton audioStream={audioStreamRef.current} />
+                  )}
+                </div>
+                <motion.div 
+                  className="flex-grow overflow-y-auto"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <MessageControls conversation={conversation} />
+                </motion.div>
+              </>
+            )}
+
+            {/* Bottom Section */}
+            <div className="mt-auto space-y-4">
+              {status && <StatusDisplay status={status} />}
               <div className="flex flex-col items-center">
                 <BroadcastButton 
                   isSessionActive={isSessionActive} 
                   onClick={handleStartStopClick}
                 />
               </div>
-            </div>
-
-            {/* Conversation Section */}
-            {status && (
-              <>
-                <div className="h-px bg-border my-6" />
-              <motion.div 
-                className="flex-grow overflow-hidden"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <MessageControls conversation={conversation} />
-              </motion.div>
-              </>
-            )}
-
-            {/* Bottom Section */}
-            <div className="space-y-4">
-              {status && <StatusDisplay status={status} />}
             </div>
           </div>
         </motion.div>
