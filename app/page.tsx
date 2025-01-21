@@ -9,6 +9,7 @@ import { AvatarInfo } from "@/components/avatar-info"
 import { StatusDisplay } from "@/components/status"
 import { MessageControls } from "@/components/message-controls"
 import { MuteButton } from "@/components/mute-button"
+import { WandButton } from "@/components/wand-button"
 import { motion } from "framer-motion"
 import { useToolsFunctions } from "@/hooks/use-tools"
 import { SecuritySlides } from "@/components/security-slides"
@@ -21,7 +22,8 @@ const App: React.FC = () => {
     registerFunction,
     handleStartStopClick,
     conversation,
-    audioStreamRef
+    audioStreamRef,
+    dataChannelRef
   } = useWebRTCAudioSession(openAIConfig.voice, tools)
 
   // Get all tools functions
@@ -77,7 +79,10 @@ const App: React.FC = () => {
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-light">Conversation</h2>
                   {isSessionActive && (
-                    <MuteButton audioStream={audioStreamRef.current} />
+                    <div className="flex gap-2">
+                      <MuteButton audioStream={audioStreamRef.current} />
+                      <WandButton dataChannel={dataChannelRef.current} />
+                    </div>
                   )}
                 </div>
                 <motion.div 
