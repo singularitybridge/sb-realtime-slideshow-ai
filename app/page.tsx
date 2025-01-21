@@ -36,12 +36,7 @@ const App: React.FC = () => {
         getCurrentSlideFunction: 'getCurrentSlide',
         nextSlideFunction: 'nextSlide',
         prevSlideFunction: 'prevSlide',
-        timeFunction: 'getCurrentTime',
-        backgroundFunction: 'changeBackgroundColor',
-        partyFunction: 'partyMode',
-        launchWebsite: 'launchWebsite', 
-        copyToClipboard: 'copyToClipboard',
-        scrapeWebsite: 'scrapeWebsite'
+        timeFunction: 'getCurrentTime'
       };
       
       registerFunction(functionNames[name], func);
@@ -61,7 +56,7 @@ const App: React.FC = () => {
         </motion.div>
 
         <motion.div
-          className="col-span-1 overflow-hidden"
+          className="col-span-1 overflow-hidden bg-purple-50 bg-[radial-gradient(circle_at_center,_rgba(167,139,250,0.1)_0%,_rgba(167,139,250,0.05)_25%,_transparent_50%)] [background-image:radial-gradient(rgba(167,139,250,0.1)_1px,transparent_1px),radial-gradient(rgba(167,139,250,0.1)_1px,transparent_1px)] [background-size:20px_20px] [background-position:0_0,10px_10px] rounded-xl border border-purple-100/50"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
