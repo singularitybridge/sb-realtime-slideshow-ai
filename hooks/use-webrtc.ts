@@ -47,12 +47,29 @@ interface ResponseDoneMessage extends BaseMessage {
   };
 }
 
+interface TextInputMessage extends BaseMessage {
+  type: "conversation.item.create";
+  item: {
+    id: string;
+    type: "message" | "function_call_output";
+    role?: "user";
+    content?: Array<{
+      type: "input_text";
+      text: string;
+    }>;
+    timestamp?: string;
+    call_id?: string;
+    output?: string;
+  };
+}
+
 type WebRTCMessage = 
   | TranscriptionMessage 
   | TranscriptionCompletedMessage 
   | AudioTranscriptDeltaMessage 
   | FunctionCallMessage
   | ResponseDoneMessage
+  | TextInputMessage
   | BaseMessage;
 
 export interface Tool {
@@ -334,6 +351,26 @@ export default function useWebRTCAudioSession(
         /**
          * AI calls a function (tool)
          */
+        /**
+         * Handle text input message
+         */
+        case "conversation.item.create": {
+          const textMsg = msg as TextInputMessage;
+          if (textMsg.item?.type === 'message' && textMsg.item.role === 'user' && textMsg.item.content?.[0]?.type === 'input_text') {
+            // Add user message to conversation immediately
+            const newMessage: Conversation = {
+              id: textMsg.item.id,
+              role: 'user',
+              text: textMsg.item.content[0].text,
+              timestamp: textMsg.item.timestamp || new Date().toISOString(),
+              isFinal: true,
+              status: 'final'
+            };
+            setConversation(prev => [...prev, newMessage]);
+          }
+          break;
+        }
+
         case "response.function_call_arguments.done": {
           const functionMsg = msg as FunctionCallMessage;
           const fn = functionRegistry.current[functionMsg.name];

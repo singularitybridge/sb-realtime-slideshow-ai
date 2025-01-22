@@ -99,6 +99,7 @@ const App: React.FC = () => {
                 <BroadcastButton 
                   isSessionActive={isSessionActive} 
                   onClick={handleStartStopClick}
+                  dataChannel={dataChannelRef.current}
                 />
               </div>
             </div>
