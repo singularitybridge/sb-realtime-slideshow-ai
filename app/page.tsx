@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import useWebRTCAudioSession from "@/hooks/use-webrtc"
 import { tools } from "@/lib/tools"
 import { openAIConfig } from "@/config/openai"
+import type { AgentConfig } from "@/components/avatar-info"
 import { BroadcastButton } from "@/components/broadcast-button"
 import { AvatarInfo } from "@/components/avatar-info"
 import { StatusDisplay } from "@/components/status"
@@ -15,7 +16,16 @@ import { useToolsFunctions } from "@/hooks/use-tools"
 import { SecuritySlides } from "@/components/security-slides"
 
 const App: React.FC = () => {
-  // WebRTC Audio Session Hook with fixed voice from config
+  const [agentConfig, setAgentConfig] = useState<AgentConfig>(() => {
+    const stored = typeof window !== 'undefined' ? localStorage.getItem('agentConfig') : null
+    return stored ? JSON.parse(stored) : {
+      name: "Jacqueline Kovalenko",
+      role: "ai buddy",
+      prompt: openAIConfig.instructions
+    }
+  })
+
+  // WebRTC Audio Session Hook with custom config
   const {
     status,
     isSessionActive,
@@ -24,7 +34,7 @@ const App: React.FC = () => {
     conversation,
     audioStreamRef,
     dataChannelRef
-  } = useWebRTCAudioSession(openAIConfig.voice, tools)
+  } = useWebRTCAudioSession(openAIConfig.voice, tools, agentConfig.prompt)
 
   // Get all tools functions
   const toolsFunctions = useToolsFunctions();
@@ -67,7 +77,10 @@ const App: React.FC = () => {
           <div className="p-6 flex flex-col h-full">
             {/* Top Section */}
             <div className="space-y-4">
-              <AvatarInfo />
+              <AvatarInfo 
+                onConfigChange={setAgentConfig}
+                hideEdit={isSessionActive}
+              />
             </div>
 
             {/* Conversation Section */}

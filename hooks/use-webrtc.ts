@@ -129,6 +129,7 @@ interface UseWebRTCAudioSessionReturn {
 export default function useWebRTCAudioSession(
   voice: string,
   tools?: Tool[],
+  instructions?: string,
 ): UseWebRTCAudioSessionReturn {
   // Connection/session states
   const [status, setStatus] = useState("");
@@ -188,6 +189,7 @@ export default function useWebRTCAudioSession(
         input_audio_transcription: {
           model: "whisper-1",
         },
+        instructions: instructions,
       },
     };
     dataChannel.send(JSON.stringify(sessionUpdate));
