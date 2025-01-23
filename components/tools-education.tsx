@@ -41,6 +41,10 @@ export function ToolsEducation() {
       description: "Update the title of the current slide",
     },
     {
+      name: "Update Current Slide Description",
+      description: "Update the description of the current slide",
+    },
+    {
       name: "Party Mode",
       description: "Start a celebration with confetti",
     },

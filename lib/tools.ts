@@ -26,6 +26,15 @@ const toolDefinitions = {
             }
         }
     },
+    updateCurrentSlideDescription: {
+        description: 'Updates the description of the current slide',
+        parameters: {
+            description: {
+                type: 'string',
+                description: 'The new description for the current slide'
+            }
+        }
+    },
     nextSlide: {
         description: 'Moves to the next slide in the presentation. Returns an error if already at the last slide.',
         parameters: {}
