@@ -38,7 +38,8 @@ const App: React.FC = () => {
         prevSlideFunction: 'prevSlide',
         timeFunction: 'getCurrentTime',
         updateCurrentSlideTitleFunction: 'updateCurrentSlideTitle',
-        updateCurrentSlideDescriptionFunction: 'updateCurrentSlideDescription'
+        updateCurrentSlideDescriptionFunction: 'updateCurrentSlideDescription',
+        updateSlideBlockFunction: 'updateSlideBlock'
       };
       
       registerFunction(functionNames[name], func);

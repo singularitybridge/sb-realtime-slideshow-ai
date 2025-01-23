@@ -100,8 +100,9 @@ type UrlFunction = (args: { url: string }) => Promise<ToolResult> | ToolResult;
 type TextFunction = (args: { text: string }) => Promise<ToolResult> | ToolResult;
 type TitleFunction = (args: { title: string }) => Promise<ToolResult> | ToolResult;
 type DescriptionFunction = (args: { description: string }) => Promise<ToolResult> | ToolResult;
+type BlockFunction = (args: { blockId: string, title?: string, content?: string }) => Promise<ToolResult> | ToolResult;
 
-type ToolFunction = NoArgFunction | UrlFunction | TextFunction | TitleFunction | DescriptionFunction;
+type ToolFunction = NoArgFunction | UrlFunction | TextFunction | TitleFunction | DescriptionFunction | BlockFunction;
 
 /**
  * The return type for the hook, matching Approach A

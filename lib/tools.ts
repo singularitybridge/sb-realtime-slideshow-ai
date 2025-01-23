@@ -35,6 +35,25 @@ const toolDefinitions = {
             }
         }
     },
+    updateSlideBlock: {
+        description: 'Updates a block in the current slide',
+        parameters: {
+            blockId: {
+                type: 'string',
+                description: 'The ID of the block to update'
+            },
+            title: {
+                type: 'string',
+                description: 'The new title for the block (optional)',
+                optional: true
+            },
+            content: {
+                type: 'string',
+                description: 'The new content for the block (optional)',
+                optional: true
+            }
+        }
+    },
     nextSlide: {
         description: 'Moves to the next slide in the presentation. Returns an error if already at the last slide.',
         parameters: {}

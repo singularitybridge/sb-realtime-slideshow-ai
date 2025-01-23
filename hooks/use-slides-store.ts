@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 
-interface SlideBlock {
+export interface SlideBlock {
+  id: string
   title: string
   content: string
 }
@@ -22,6 +23,7 @@ interface SlideState {
   getCurrentSlideContent: () => Slide | null
   updateCurrentSlideTitle: (title: string) => void
   updateCurrentSlideDescription: (description: string) => void
+  updateSlideBlock: (blockId: string, updates: Partial<SlideBlock>) => void
 }
 
 export const useSlideStore = create<SlideState>((set, get) => ({
@@ -66,6 +68,29 @@ export const useSlideStore = create<SlideState>((set, get) => ({
         description
       }
       set({ slides: updatedSlides })
+    }
+  },
+  updateSlideBlock: (blockId: string, updates: Partial<SlideBlock>) => {
+    const state = get()
+    if (state.currentSlide >= 0 && state.currentSlide < state.slides.length) {
+      const updatedSlides = [...state.slides]
+      const currentSlide = updatedSlides[state.currentSlide]
+      const blockIndex = currentSlide.blocks.findIndex(block => block.id === blockId)
+      
+      if (blockIndex !== -1) {
+        const updatedBlocks = [...currentSlide.blocks]
+        updatedBlocks[blockIndex] = {
+          ...updatedBlocks[blockIndex],
+          ...updates
+        }
+        
+        updatedSlides[state.currentSlide] = {
+          ...currentSlide,
+          blocks: updatedBlocks
+        }
+        
+        set({ slides: updatedSlides })
+      }
     }
   }
 }))

@@ -14,7 +14,10 @@ import {
   ArrowPathIcon,
 } from '@heroicons/react/24/outline';
 
+import { v4 as uuidv4 } from 'uuid';
+
 interface SlideBlock {
+  id: string;
   title: string;
   content: string;
 }
@@ -31,14 +34,17 @@ const slides: Slide[] = [
     description: "A comprehensive security audit is a systematic evaluation of your organization's information security measures. It involves a detailed examination of your system's security controls, policies, and procedures to ensure they meet industry standards and effectively protect sensitive data. Through this process, we identify potential vulnerabilities, assess risks, and provide actionable recommendations for strengthening your security posture.",
     blocks: [
       {
+        id: uuidv4(),
         title: "Scope Definition",
         content: "Define boundaries and objectives of the security audit, including systems, networks, and applications to be evaluated."
       },
       {
+        id: uuidv4(),
         title: "Risk Assessment",
         content: "Identify potential threats, vulnerabilities, and their impact on business operations and data security."
       },
       {
+        id: uuidv4(),
         title: "Compliance Check",
         content: "Verify adherence to industry standards, regulations, and internal security policies."
       }
@@ -49,14 +55,17 @@ const slides: Slide[] = [
     description: "The security review process is a methodical approach to evaluating your organization's security measures. It combines automated scanning, manual testing, and expert analysis to create a complete picture of your security landscape. Our team examines everything from network infrastructure to application security, ensuring no potential vulnerability goes unnoticed. This thorough approach helps identify both technical and procedural security gaps.",
     blocks: [
       {
+        id: uuidv4(),
         title: "Documentation Review",
         content: "Examine security policies, procedures, and system documentation for completeness and effectiveness."
       },
       {
+        id: uuidv4(),
         title: "Technical Assessment",
         content: "Conduct vulnerability scans, penetration testing, and security control evaluation."
       },
       {
+        id: uuidv4(),
         title: "Gap Analysis",
         content: "Identify discrepancies between current security posture and desired security state."
       }
@@ -67,14 +76,17 @@ const slides: Slide[] = [
     description: "Implementing security improvements is a strategic process that transforms audit findings into actionable security enhancements. We work closely with your team to develop a prioritized roadmap for addressing identified vulnerabilities. This phase focuses on both quick wins and long-term structural improvements, ensuring that security measures are not only implemented but are sustainable and adaptable to evolving threats.",
     blocks: [
       {
+        id: uuidv4(),
         title: "Prioritization",
         content: "Rank security issues based on risk level and potential impact to focus remediation efforts."
       },
       {
+        id: uuidv4(),
         title: "Action Planning",
         content: "Develop detailed remediation plans with specific tasks, timelines, and responsibilities."
       },
       {
+        id: uuidv4(),
         title: "Continuous Monitoring",
         content: "Implement ongoing security monitoring and regular reassessment of security controls."
       }
@@ -131,9 +143,12 @@ export const SecuritySlides = () => {
                           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
                             <Icon className="w-5 h-5 text-primary" />
                           </div>
-                          <h3 className="text-lg font-semibold text-slate-500 group-hover:text-primary transition-colors">
-                            {block.title}
-                          </h3>
+                          <div>
+                            <h3 className="text-lg font-semibold text-slate-500 group-hover:text-primary transition-colors">
+                              {block.title}
+                            </h3>
+                            <p className="text-xs text-gray-400">ID: {block.id}</p>
+                          </div>
                         </div>
                       </div>
                       <p className="text-sm text-gray-600 leading-relaxed">

@@ -2,9 +2,10 @@
 
 import { toast } from "sonner"
 import { useSlideStore } from "@/hooks/use-slides-store"
+import type { SlideBlock } from "@/hooks/use-slides-store"
 
 export const useToolsFunctions = () => {
-  const { nextSlide: next, prevSlide: prev, currentSlide, totalSlides, getCurrentSlideContent, updateCurrentSlideTitle, updateCurrentSlideDescription } = useSlideStore()
+  const { nextSlide: next, prevSlide: prev, currentSlide, totalSlides, getCurrentSlideContent, updateCurrentSlideTitle, updateCurrentSlideDescription, updateSlideBlock } = useSlideStore()
 
   const getCurrentSlideFunction = () => {
     const slide = getCurrentSlideContent()
@@ -16,7 +17,7 @@ export const useToolsFunctions = () => {
     }
 
     const formattedBlocks = slide.blocks.map(block => 
-      `${block.title}:\n${block.content}`
+      `Block ID: ${block.id}\nTitle: ${block.title}\nContent: ${block.content}`
     ).join('\n\n')
 
     return {
@@ -26,7 +27,7 @@ export const useToolsFunctions = () => {
         description: slide.description,
         blocks: formattedBlocks
       },
-      message: `Current slide (${currentSlide + 1}/${totalSlides}):\n\nTitle: ${slide.title}\n\nDescription: ${slide.description}\n\nKey Points:\n${formattedBlocks}`
+      message: `Current slide (${currentSlide + 1}/${totalSlides}):\n\nTitle: ${slide.title}\n\nDescription: ${slide.description}\n\nBlocks:\n${formattedBlocks}`
     }
   }
 
@@ -94,6 +95,43 @@ export const useToolsFunctions = () => {
     }
   }
 
+  const updateSlideBlockFunction = (args: { blockId: string, title?: string, content?: string }) => {
+    const slide = getCurrentSlideContent()
+    if (!slide) {
+      return {
+        success: false,
+        message: "No slide content available"
+      }
+    }
+
+    const block = slide.blocks.find(b => b.id === args.blockId)
+    if (!block) {
+      return {
+        success: false,
+        message: `Block with ID ${args.blockId} not found`
+      }
+    }
+
+    const updates: Partial<SlideBlock> = {}
+    if (args.title !== undefined) updates.title = args.title
+    if (args.content !== undefined) updates.content = args.content
+
+    updateSlideBlock(args.blockId, updates)
+    
+    const updateType = args.title && args.content ? "title and content" 
+      : args.title ? "title"
+      : "content"
+    
+    toast("Block Updated", {
+      description: `Updated block ${updateType}`,
+    })
+    
+    return {
+      success: true,
+      message: `Updated block ${updateType} successfully`
+    }
+  }
+
   const updateCurrentSlideDescriptionFunction = (args: { description: string }) => {
     const slide = getCurrentSlideContent()
     if (!slide) {
@@ -120,6 +158,7 @@ export const useToolsFunctions = () => {
     prevSlideFunction,
     timeFunction,
     updateCurrentSlideTitleFunction,
-    updateCurrentSlideDescriptionFunction
+    updateCurrentSlideDescriptionFunction,
+    updateSlideBlockFunction
   }
 }
