@@ -17,6 +17,15 @@ const toolDefinitions = {
         description: 'Gets the content of the current slide including title, description, and key points',
         parameters: {}
     },
+    updateCurrentSlideTitle: {
+        description: 'Updates the title of the current slide',
+        parameters: {
+            title: {
+                type: 'string',
+                description: 'The new title for the current slide'
+            }
+        }
+    },
     nextSlide: {
         description: 'Moves to the next slide in the presentation. Returns an error if already at the last slide.',
         parameters: {}

@@ -37,6 +37,10 @@ export function ToolsEducation() {
       description: "Get the current time",
     },
     {
+      name: "Update Current Slide Title",
+      description: "Update the title of the current slide",
+    },
+    {
       name: "Party Mode",
       description: "Start a celebration with confetti",
     },

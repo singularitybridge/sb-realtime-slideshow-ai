@@ -20,6 +20,7 @@ interface SlideState {
   setTotalSlides: (total: number) => void
   setSlides: (slides: Slide[]) => void
   getCurrentSlideContent: () => Slide | null
+  updateCurrentSlideTitle: (title: string) => void
 }
 
 export const useSlideStore = create<SlideState>((set, get) => ({
@@ -43,5 +44,16 @@ export const useSlideStore = create<SlideState>((set, get) => ({
   getCurrentSlideContent: () => {
     const state = get()
     return state.slides[state.currentSlide] || null
+  },
+  updateCurrentSlideTitle: (title: string) => {
+    const state = get()
+    if (state.currentSlide >= 0 && state.currentSlide < state.slides.length) {
+      const updatedSlides = [...state.slides]
+      updatedSlides[state.currentSlide] = {
+        ...updatedSlides[state.currentSlide],
+        title
+      }
+      set({ slides: updatedSlides })
+    }
   }
 }))

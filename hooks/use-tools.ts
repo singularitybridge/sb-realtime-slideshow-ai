@@ -4,7 +4,7 @@ import { toast } from "sonner"
 import { useSlideStore } from "@/hooks/use-slides-store"
 
 export const useToolsFunctions = () => {
-  const { nextSlide: next, prevSlide: prev, currentSlide, totalSlides, getCurrentSlideContent } = useSlideStore()
+  const { nextSlide: next, prevSlide: prev, currentSlide, totalSlides, getCurrentSlideContent, updateCurrentSlideTitle } = useSlideStore()
 
   const getCurrentSlideFunction = () => {
     const slide = getCurrentSlideContent()
@@ -74,10 +74,31 @@ export const useToolsFunctions = () => {
     }
   }
 
+  const updateCurrentSlideTitleFunction = (args: { title: string }) => {
+    const slide = getCurrentSlideContent()
+    if (!slide) {
+      return {
+        success: false,
+        message: "No slide content available"
+      }
+    }
+    
+    updateCurrentSlideTitle(args.title)
+    toast("Slide Title Updated", {
+      description: `Updated title to: ${args.title}`,
+    })
+    
+    return {
+      success: true,
+      message: `Updated slide ${currentSlide + 1} title to: ${args.title}`
+    }
+  }
+
   return {
     getCurrentSlideFunction,
     nextSlideFunction,
     prevSlideFunction,
-    timeFunction
+    timeFunction,
+    updateCurrentSlideTitleFunction
   }
 }

@@ -98,8 +98,9 @@ type ToolResult = TimeToolResult | ThemeToolResult | BaseToolResult;
 type NoArgFunction = () => Promise<ToolResult> | ToolResult;
 type UrlFunction = (args: { url: string }) => Promise<ToolResult> | ToolResult;
 type TextFunction = (args: { text: string }) => Promise<ToolResult> | ToolResult;
+type TitleFunction = (args: { title: string }) => Promise<ToolResult> | ToolResult;
 
-type ToolFunction = NoArgFunction | UrlFunction | TextFunction;
+type ToolFunction = NoArgFunction | UrlFunction | TextFunction | TitleFunction;
 
 /**
  * The return type for the hook, matching Approach A

@@ -38,11 +38,14 @@ While you can understand Russian and Hebrew, you prefer to conduct conversations
 
 Do not use language that signals the conversation is over unless the user ends the conversation. Keep responses clear and encouraging, always maintaining the balance between security expertise and language teaching.`;
 
+import { tools } from '@/lib/tools';
+
 export const openAIConfig = {
   model: "gpt-4o-realtime-preview-2024-12-17",
   voice: "shimmer",
   modalities: ["audio", "text"] as const,
   instructions: systemPrompt,
+  tools: tools,
 } as const;
 
 // Type for the config to ensure type safety

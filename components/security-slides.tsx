@@ -83,7 +83,7 @@ const slides: Slide[] = [
 ];
 
 export const SecuritySlides = () => {
-  const { currentSlide, nextSlide, prevSlide, setTotalSlides, setSlides } = useSlideStore();
+  const { currentSlide, nextSlide, prevSlide, setTotalSlides, setSlides, getCurrentSlideContent } = useSlideStore();
 
   useEffect(() => {
     setTotalSlides(slides.length);
@@ -103,13 +103,13 @@ export const SecuritySlides = () => {
         >
           <div className="flex flex-col h-full">
             <div className="mb-12">
-              <h1 className="text-3xl font-bold mb-6 text-primary">{slides[currentSlide].title}</h1>
-              <p className="text-lg leading-relaxed text-gray-600">{slides[currentSlide].description}</p>
+              <h1 className="text-3xl font-bold mb-6 text-primary">{getCurrentSlideContent()?.title}</h1>
+              <p className="text-lg leading-relaxed text-gray-600">{getCurrentSlideContent()?.description}</p>
             </div>
             
             <div className="mt-auto mb-6">
               <div className="grid grid-cols-3 gap-6">
-              {slides[currentSlide].blocks.map((block, index) => {
+              {getCurrentSlideContent()?.blocks.map((block, index) => {
                 const icons = [
                   [MagnifyingGlassIcon, ShieldExclamationIcon, ClipboardDocumentCheckIcon],
                   [DocumentTextIcon, ComputerDesktopIcon, ChartBarIcon],
