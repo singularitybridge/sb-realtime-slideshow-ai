@@ -44,32 +44,21 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
     }
 
     try {
-      // Stop any playing audio
-      const audioElements = document.getElementsByTagName('audio');
-      for (const audio of audioElements) {
-        audio.pause();
-      }
-
-      // Create a unique ID for the message
-      const messageId = crypto.randomUUID();
-
-      // Add user message to conversation
-      const conversationItem = {
-      type: 'conversation.item.create',
-      item: {
-        id: messageId,
-        type: 'message',
-        role: 'user',
-        content: [{
-          type: 'input_text',
-          text: inputText.trim()
-        }],
-        timestamp: new Date().toISOString()
-      }
-    };
+      // Send user message
+      const userMessage = {
+        type: 'conversation.item.create',
+        item: {
+          type: 'message',
+          role: 'user',
+          content: [{
+            type: 'input_text',
+            text: inputText.trim()
+          }]
+        }
+      };
 
       // Send the message
-      dataChannel.send(JSON.stringify(conversationItem));
+      dataChannel.send(JSON.stringify(userMessage));
 
       // Trigger the voice response
       const responseCreate = {
@@ -129,6 +118,17 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
         disabled={!isChannelReady}
         className="flex-1 py-6 text-lg disabled:opacity-50"
       />
+      <Button
+        variant="default"
+        size="icon"
+        onClick={handleSubmit}
+        disabled={!isChannelReady || !inputText.trim()}
+        className="py-6"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+          <path d="m3 3 3 9-3 9 19-9Z" />
+        </svg>
+      </Button>
       <Button
         variant="destructive"
         size="icon"
