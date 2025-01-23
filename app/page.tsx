@@ -14,8 +14,13 @@ import { WandButton } from "@/components/wand-button"
 import { motion } from "framer-motion"
 import { useToolsFunctions } from "@/hooks/use-tools"
 import { SecuritySlides } from "@/components/security-slides"
+import { useLanguageStore } from "@/hooks/use-language-store"
+import { translations } from "@/lib/translations"
 
 const App: React.FC = () => {
+  const { language } = useLanguageStore()
+  const t = translations[language]
+
   const [agentConfig, setAgentConfig] = useState<AgentConfig>(() => {
     const stored = typeof window !== 'undefined' ? localStorage.getItem('agentConfig') : null
     return stored ? JSON.parse(stored) : {
@@ -57,7 +62,7 @@ const App: React.FC = () => {
   }, [registerFunction, toolsFunctions])
 
   return (
-    <main className="h-screen p-8">
+    <main className="h-screen p-8" dir={language === 'he' ? 'rtl' : 'ltr'}>
       <div className="h-full grid grid-cols-3 gap-8">
         <motion.div 
           className="col-span-2 overflow-hidden"
@@ -88,7 +93,7 @@ const App: React.FC = () => {
               <>
                 <div className="h-px bg-border my-6" />
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-light">Conversation</h2>
+                  <h2 className="text-xl font-light">{t.sections.conversation}</h2>
                   {isSessionActive && (
                     <div className="flex gap-2">
                       <MuteButton audioStream={audioStreamRef.current} />

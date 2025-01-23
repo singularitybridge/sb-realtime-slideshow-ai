@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Square, Loader2 } from "lucide-react"
 import { useState, KeyboardEvent, useEffect } from "react"
+import { useLanguageStore } from "@/hooks/use-language-store"
+import { translations } from "@/lib/translations"
 
 interface BroadcastButtonProps {
   isSessionActive: boolean
@@ -13,6 +15,8 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
   const [inputText, setInputText] = useState("")
   const [isChannelReady, setIsChannelReady] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const { language } = useLanguageStore()
+  const t = translations[language]
 
   useEffect(() => {
     if (!dataChannel) {
@@ -99,22 +103,22 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
         {isLoading ? (
           <>
             <Loader2 className="h-5 w-5 animate-spin" />
-            Starting...
+            {t.buttons.starting}
           </>
         ) : (
-          "Start"
+          t.buttons.start
         )}
       </Button>
     )
   }
 
   return (
-    <div className="flex gap-2 w-full">
+    <div className="flex gap-2 w-full" dir={language === 'he' ? 'rtl' : 'ltr'}>
       <Input
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         onKeyPress={handleKeyPress}
-        placeholder={isChannelReady ? "Type your message..." : "Connecting..."}
+        placeholder={isChannelReady ? t.input.placeholder : t.input.connecting}
         disabled={!isChannelReady}
         className="flex-1 py-6 text-lg disabled:opacity-50"
       />
@@ -124,6 +128,7 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
         onClick={handleSubmit}
         disabled={!isChannelReady || !inputText.trim()}
         className="py-6"
+        aria-label={t.buttons.send}
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
           <path d="m3 3 3 9-3 9 19-9Z" />
@@ -134,6 +139,7 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
         size="icon"
         onClick={onClick}
         className="py-6"
+        aria-label={t.buttons.stop}
       >
         <Square className="h-5 w-5" />
       </Button>

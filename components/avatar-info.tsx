@@ -12,6 +12,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react"
 import { systemPrompt } from "@/config/openai"
+import { useLanguageStore } from "@/hooks/use-language-store"
+import { translations } from "@/lib/translations"
 
 export interface AgentConfig {
   name: string;
@@ -33,6 +35,8 @@ interface AvatarInfoProps {
 export function AvatarInfo({ onConfigChange, hideEdit = false }: AvatarInfoProps) {
   const [config, setConfig] = useState<AgentConfig>(defaultConfig)
   const [open, setOpen] = useState(false)
+  const { language } = useLanguageStore()
+  const t = translations[language]
 
   useEffect(() => {
     const stored = localStorage.getItem('agentConfig')
@@ -70,7 +74,7 @@ export function AvatarInfo({ onConfigChange, hideEdit = false }: AvatarInfoProps
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button variant="outline" size="sm">
-              Edit
+              {t.buttons.edit}
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
