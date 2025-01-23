@@ -3,15 +3,15 @@ import { useSlideStore } from '@/hooks/use-slides-store';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  MagnifyingGlassIcon,
-  ShieldExclamationIcon,
-  ClipboardDocumentCheckIcon,
-  DocumentTextIcon,
-  ComputerDesktopIcon,
-  ChartBarIcon,
-  AdjustmentsHorizontalIcon,
-  RocketLaunchIcon,
-  ArrowPathIcon,
+  MicrophoneIcon,
+  ArrowPathRoundedSquareIcon,
+  CommandLineIcon,
+  DocumentPlusIcon,
+  ChatBubbleBottomCenterTextIcon,
+  WrenchScrewdriverIcon,
+  PlayCircleIcon,
+  SparklesIcon,
+  CpuChipIcon,
 } from '@heroicons/react/24/outline';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -30,65 +30,65 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    title: "Understanding Security Audits",
-    description: "A comprehensive security audit is a systematic evaluation of your organization's information security measures. It involves a detailed examination of your system's security controls, policies, and procedures to ensure they meet industry standards and effectively protect sensitive data. Through this process, we identify potential vulnerabilities, assess risks, and provide actionable recommendations for strengthening your security posture.",
+    title: "Welcome to AI-Powered Presentations",
+    description: "Experience the future of presentations with our AI assistant. This innovative system combines real-time voice interaction, dynamic content generation, and intelligent slide management to create engaging and interactive presentations. Whether you're teaching, presenting, or brainstorming, our AI assistant is here to enhance your experience.",
     blocks: [
       {
         id: uuidv4(),
-        title: "Scope Definition",
-        content: "Define boundaries and objectives of the security audit, including systems, networks, and applications to be evaluated."
+        title: "Voice Interaction",
+        content: "Speak naturally with our AI assistant using advanced speech recognition and natural language processing technology."
       },
       {
         id: uuidv4(),
-        title: "Risk Assessment",
-        content: "Identify potential threats, vulnerabilities, and their impact on business operations and data security."
+        title: "Real-time Updates",
+        content: "Watch as your slides update dynamically based on your conversation with the AI, creating a truly interactive experience."
       },
       {
         id: uuidv4(),
-        title: "Compliance Check",
-        content: "Verify adherence to industry standards, regulations, and internal security policies."
+        title: "Smart Navigation",
+        content: "Effortlessly move between slides using voice commands or traditional controls, with AI-powered content organization."
       }
     ]
   },
   {
-    title: "Security Review Process",
-    description: "The security review process is a methodical approach to evaluating your organization's security measures. It combines automated scanning, manual testing, and expert analysis to create a complete picture of your security landscape. Our team examines everything from network infrastructure to application security, ensuring no potential vulnerability goes unnoticed. This thorough approach helps identify both technical and procedural security gaps.",
+    title: "AI Capabilities & Features",
+    description: "Our system leverages cutting-edge AI technology to provide a seamless and intuitive presentation experience. The AI assistant understands context, remembers previous interactions, and can adapt its responses to better suit your needs. With support for multiple languages and various presentation styles, it's designed to be versatile and user-friendly.",
     blocks: [
       {
         id: uuidv4(),
-        title: "Documentation Review",
-        content: "Examine security policies, procedures, and system documentation for completeness and effectiveness."
+        title: "Content Generation",
+        content: "The AI can help create, modify, and enhance slide content based on your instructions and requirements."
       },
       {
         id: uuidv4(),
-        title: "Technical Assessment",
-        content: "Conduct vulnerability scans, penetration testing, and security control evaluation."
+        title: "Interactive Learning",
+        content: "Engage in dynamic conversations with the AI to explore topics, ask questions, and deepen understanding."
       },
       {
         id: uuidv4(),
-        title: "Gap Analysis",
-        content: "Identify discrepancies between current security posture and desired security state."
+        title: "Customization",
+        content: "Tailor the AI's behavior, voice, and personality to match your preferences and presentation style."
       }
     ]
   },
   {
-    title: "Implementing Security Improvements",
-    description: "Implementing security improvements is a strategic process that transforms audit findings into actionable security enhancements. We work closely with your team to develop a prioritized roadmap for addressing identified vulnerabilities. This phase focuses on both quick wins and long-term structural improvements, ensuring that security measures are not only implemented but are sustainable and adaptable to evolving threats.",
+    title: "Getting Started",
+    description: "Begin your journey with our AI presentation system by exploring its core features. The system is designed to be intuitive while offering powerful capabilities. You can start with basic voice commands and gradually discover more advanced features as you become comfortable with the interface.",
     blocks: [
       {
         id: uuidv4(),
-        title: "Prioritization",
-        content: "Rank security issues based on risk level and potential impact to focus remediation efforts."
+        title: "Basic Commands",
+        content: "Start with simple voice commands like 'next slide', 'update title', or 'add content' to control your presentation."
       },
       {
         id: uuidv4(),
-        title: "Action Planning",
-        content: "Develop detailed remediation plans with specific tasks, timelines, and responsibilities."
+        title: "AI Interaction",
+        content: "Engage in natural conversations with the AI to create, modify, and enhance your presentation content."
       },
       {
         id: uuidv4(),
-        title: "Continuous Monitoring",
-        content: "Implement ongoing security monitoring and regular reassessment of security controls."
+        title: "Advanced Features",
+        content: "Explore advanced capabilities like real-time content generation, dynamic updates, and interactive elements."
       }
     ]
   }
@@ -123,9 +123,9 @@ export const SecuritySlides = () => {
               <div className="grid grid-cols-3 gap-6">
               {getCurrentSlideContent()?.blocks.map((block, index) => {
                 const icons = [
-                  [MagnifyingGlassIcon, ShieldExclamationIcon, ClipboardDocumentCheckIcon],
-                  [DocumentTextIcon, ComputerDesktopIcon, ChartBarIcon],
-                  [AdjustmentsHorizontalIcon, RocketLaunchIcon, ArrowPathIcon]
+                  [MicrophoneIcon, ArrowPathRoundedSquareIcon, CommandLineIcon],
+                  [DocumentPlusIcon, ChatBubbleBottomCenterTextIcon, WrenchScrewdriverIcon],
+                  [PlayCircleIcon, SparklesIcon, CpuChipIcon]
                 ];
                 const Icon = icons[currentSlide][index];
                 
