@@ -8,7 +8,7 @@ export function AvatarInfo() {
       </Avatar>
       <div className="text-center">
         <h3 className="font-semibold">Jacqueline Kovalenko</h3>
-        <p className="text-sm text-muted-foreground">Security Expert</p>
+        <p className="text-sm text-muted-foreground">ai buddy</p>
       </div>
     </div>
   )
