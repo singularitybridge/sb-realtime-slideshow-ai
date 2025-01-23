@@ -1,17 +1,18 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Square } from "lucide-react"
+import { Square, Loader2 } from "lucide-react"
 import { useState, KeyboardEvent, useEffect } from "react"
 
 interface BroadcastButtonProps {
   isSessionActive: boolean
-  onClick: () => void
+  onClick: () => Promise<void>
   dataChannel?: RTCDataChannel | null
 }
 
 export function BroadcastButton({ isSessionActive, onClick, dataChannel }: BroadcastButtonProps) {
   const [inputText, setInputText] = useState("")
   const [isChannelReady, setIsChannelReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (!dataChannel) {
@@ -96,9 +97,24 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
       <Button
         variant="default"
         className="w-full py-6 text-lg font-medium flex items-center justify-center gap-2 motion-preset-shake"
-        onClick={onClick}
+        onClick={async () => {
+          setIsLoading(true)
+          try {
+            await onClick()
+          } finally {
+            setIsLoading(false)
+          }
+        }}
+        disabled={isLoading}
       >
-        Start
+        {isLoading ? (
+          <>
+            <Loader2 className="h-5 w-5 animate-spin" />
+            Starting...
+          </>
+        ) : (
+          "Start"
+        )}
       </Button>
     )
   }

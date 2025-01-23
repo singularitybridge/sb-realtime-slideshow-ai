@@ -113,7 +113,7 @@ interface UseWebRTCAudioSessionReturn {
   dataChannelRef: React.MutableRefObject<RTCDataChannel | null>;
   startSession: () => Promise<void>;
   stopSession: () => void;
-  handleStartStopClick: () => void;
+  handleStartStopClick: () => Promise<void>;
   registerFunction: (name: string, fn: ToolFunction) => void;
   msgs: WebRTCMessage[];
   currentVolume: number;
@@ -692,11 +692,11 @@ export default function useWebRTCAudioSession(
   /**
    * Toggle start/stop from a single button
    */
-  function handleStartStopClick() {
+  async function handleStartStopClick() {
     if (isSessionActive) {
       stopSession();
     } else {
-      startSession();
+      await startSession();
     }
   }
 
