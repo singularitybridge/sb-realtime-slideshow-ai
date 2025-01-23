@@ -7,11 +7,16 @@ import { Conversation } from "@/lib/conversations";
 
 /**
 * Decide if a conversation item should be displayed or filtered out. 
-* Optional, this is used to filter out empty or useless user messages (e.g., final + empty text)
+* Show messages that are either:
+* - Non-final (in progress)
+* - Final with non-empty text
 */
-function shouldDisplayMessage(): boolean {
-  // Display all messages unconditionally
-  return true;
+function shouldDisplayMessage(message: Conversation): boolean {
+  // Always show non-final messages (for loading indicators)
+  if (!message.isFinal) return true;
+  
+  // For final messages, only show if they have content
+  return !!(message.text && message.text.trim() !== '');
 }
 
 /**
@@ -20,7 +25,6 @@ function shouldDisplayMessage(): boolean {
 function ConversationItem({ message }: { message: Conversation }) {
  const isUser = message.role === "user";
  const isAssistant = message.role === "assistant";
- const msgStatus = message.status;
 
  return (
    <motion.div
@@ -34,22 +38,22 @@ function ConversationItem({ message }: { message: Conversation }) {
      <div
        className={`text-foreground px-4 py-2 rounded-lg border motion-preset-slide-up-right ${
          isUser 
-           ? "max-w-[70%] border-gray-300/50" 
-           : "max-w-[85%] border-purple-500/80"
+           ? "max-w-[70%] border-gray-300/50 bg-white" 
+           : "max-w-[85%] border-purple-500/80 bg-purple-50/50"
        }`}
      >
        <div>
          {/* For user messages */}
          {isUser && (
            <>
-             {/* Show text if it exists and isn't "Processing speech..." */}
-             {message.text && message.text !== "Processing speech..." && (
-               <p>{message.text}</p>
+             {/* Show loading indicator for non-final messages */}
+             {!message.isFinal && (
+               <ThreeDotsWave />
              )}
              
-             {/* Show animation when speaking or processing */}
-             {(msgStatus === "speaking" || msgStatus === "processing") && (
-               <ThreeDotsWave />
+             {/* Show text content if available */}
+             {message.text && message.text !== "Processing speech..." && (
+               <p>{message.text}</p>
              )}
            </>
          )}
@@ -78,9 +82,22 @@ export default function Transcriber({ conversation }: TranscriberProps) {
    }
  }, [conversation]);
 
- // Get the 4 most recent messages
+ // Get the most recent messages, prioritizing user input
  const displayableMessages = React.useMemo(() => {
    const filteredMessages = conversation.filter(shouldDisplayMessage);
+   
+   // Find the last user message that's not final (active input)
+   const lastUserMessage = filteredMessages.findLast(
+     msg => msg.role === 'user' && !msg.isFinal
+   );
+   
+   if (lastUserMessage) {
+     // If there's active user input, show it and the previous message for context
+     const userMessageIndex = filteredMessages.indexOf(lastUserMessage);
+     return filteredMessages.slice(Math.max(0, userMessageIndex - 1), userMessageIndex + 1);
+   }
+   
+   // Otherwise show the last 4 messages
    return filteredMessages.slice(-4);
  }, [conversation]);
 

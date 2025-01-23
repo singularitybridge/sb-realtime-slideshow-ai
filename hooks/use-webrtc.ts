@@ -147,6 +147,9 @@ export default function useWebRTCAudioSession(
   // Main conversation state
   const [conversation, setConversation] = useState<Conversation[]>([]);
 
+  // Track if AI is currently responding
+  const isAIRespondingRef = useRef<boolean>(false);
+
   // For function calls (AI "tools")
   const functionRegistry = useRef<Record<string, ToolFunction>>({});
 
@@ -239,18 +242,65 @@ export default function useWebRTCAudioSession(
   }
 
   /**
+   * Validate incoming message
+   */
+  function isValidMessage(msg: WebRTCMessage): boolean {
+    if (!msg || !msg.type) return false;
+    
+    // For text messages, ensure content exists
+    if (msg.type === "conversation.item.create") {
+      const textMsg = msg as TextInputMessage;
+      return !!(textMsg.item?.content?.[0]?.text);
+    }
+    
+    // For transcriptions, ensure transcript or text exists
+    if (msg.type === "conversation.item.input_audio_transcription") {
+      const transcriptMsg = msg as TranscriptionMessage;
+      return !!(transcriptMsg.transcript || transcriptMsg.text);
+    }
+    
+    return true;
+  }
+
+  /**
+   * Stop current AI response if any
+   */
+  function stopAIResponse() {
+    if (isAIRespondingRef.current) {
+      // Mark the last assistant message as final if it exists
+      setConversation((prev) => {
+        if (prev.length === 0) return prev;
+        const lastMsg = prev[prev.length - 1];
+        if (lastMsg.role === 'assistant' && !lastMsg.isFinal) {
+          const updated = [...prev];
+          updated[updated.length - 1] = { ...lastMsg, isFinal: true };
+          return updated;
+        }
+        return prev;
+      });
+      isAIRespondingRef.current = false;
+    }
+  }
+
+  /**
    * Main data channel message handler: interprets events from the server.
    */
   async function handleDataChannelMessage(event: MessageEvent) {
     try {
       const msg = JSON.parse(event.data) as WebRTCMessage;
-      // console.log("Incoming dataChannel message:", msg);
+      
+      // Validate message
+      if (!isValidMessage(msg)) {
+        console.warn("Invalid message received:", msg);
+        return;
+      }
 
       switch (msg.type) {
         /**
          * User speech started
          */
         case "input_audio_buffer.speech_started": {
+          stopAIResponse(); // Stop AI response when user starts speaking
           getOrCreateEphemeralUserId();
           updateEphemeralUserMessage({ status: "speaking" });
           break;
@@ -309,6 +359,7 @@ export default function useWebRTCAudioSession(
          * Streaming AI transcripts (assistant partial)
          */
         case "response.audio_transcript.delta": {
+          isAIRespondingRef.current = true;
           const newMessage: Conversation = {
             id: uuidv4(), // generate a fresh ID for each assistant partial
             role: "assistant",
@@ -339,6 +390,7 @@ export default function useWebRTCAudioSession(
          * Mark the last assistant message as final
          */
         case "response.audio_transcript.done": {
+          isAIRespondingRef.current = false;
           setConversation((prev) => {
             if (prev.length === 0) return prev;
             const updated = [...prev];
@@ -356,17 +408,47 @@ export default function useWebRTCAudioSession(
          */
         case "conversation.item.create": {
           const textMsg = msg as TextInputMessage;
-          if (textMsg.item?.type === 'message' && textMsg.item.role === 'user' && textMsg.item.content?.[0]?.type === 'input_text') {
-            // Add user message to conversation immediately
-            const newMessage: Conversation = {
-              id: textMsg.item.id,
+          const content = textMsg.item?.content?.[0];
+          
+          if (textMsg.item?.type === 'message' && 
+              textMsg.item.role === 'user' && 
+              content?.type === 'input_text' &&
+              content.text) {
+            // Create ephemeral message first
+            const ephemeralId = uuidv4();
+            ephemeralUserMessageIdRef.current = ephemeralId;
+            
+            const ephemeralMessage: Conversation = {
+              id: ephemeralId,
               role: 'user',
-              text: textMsg.item.content[0].text,
-              timestamp: textMsg.item.timestamp || new Date().toISOString(),
-              isFinal: true,
-              status: 'final'
+              text: '',
+              timestamp: new Date().toISOString(),
+              isFinal: false,
+              status: 'speaking'
             };
-            setConversation(prev => [...prev, newMessage]);
+            
+            // Add ephemeral message to show loading state
+            setConversation(prev => [...prev, ephemeralMessage]);
+            
+            // After a short delay, update with the actual text
+            setTimeout(() => {
+              const finalMessage: Conversation = {
+                id: textMsg.item.id,
+                role: 'user',
+                text: content.text,
+                timestamp: textMsg.item.timestamp || new Date().toISOString(),
+                isFinal: true,
+                status: 'final'
+              };
+              
+              setConversation(prev => {
+                // Replace ephemeral message with final message
+                const withoutEphemeral = prev.filter(msg => msg.id !== ephemeralId);
+                return [...withoutEphemeral, finalMessage];
+              });
+              
+              ephemeralUserMessageIdRef.current = null;
+            }, 500); // Show loading state for 500ms
           }
           break;
         }
