@@ -113,7 +113,7 @@ export const SecuritySlides = () => {
       setTotalSlides(slides.length)
       setSlides(slides)
     }
-  }, [setTotalSlides, setSlides, language]);
+  }, [setTotalSlides, setSlides, language, slides]);
 
   return (
     <div className="h-full flex flex-col p-8" dir={language === 'he' ? 'rtl' : 'ltr'}>
