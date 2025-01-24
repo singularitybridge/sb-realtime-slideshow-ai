@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { useSlideStore } from '@/hooks/use-slides-store';
+import { useSlideStore, loadSlidesFromStorage } from '@/hooks/use-slides-store';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { translations } from '@/lib/translations';
@@ -105,9 +105,15 @@ export const SecuritySlides = () => {
   ], [t]);
 
   useEffect(() => {
-    setTotalSlides(slides.length);
-    setSlides(slides);
-  }, [setTotalSlides, setSlides]);
+    const storedSlides = loadSlidesFromStorage()
+    if (storedSlides) {
+      setTotalSlides(storedSlides.length)
+      setSlides(storedSlides)
+    } else {
+      setTotalSlides(slides.length)
+      setSlides(slides)
+    }
+  }, [setTotalSlides, setSlides, language]);
 
   return (
     <div className="h-full flex flex-col p-8" dir={language === 'he' ? 'rtl' : 'ltr'}>

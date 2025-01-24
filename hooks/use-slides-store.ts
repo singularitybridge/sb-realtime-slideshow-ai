@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { useLanguageStore } from './use-language-store'
 
 export interface SlideBlock {
   id: string
@@ -26,6 +27,24 @@ interface SlideState {
   updateSlideBlock: (blockId: string, updates: Partial<SlideBlock>) => void
 }
 
+const STORAGE_KEY = 'slides'
+
+export const getStorageKey = () => {
+  const language = useLanguageStore.getState().language
+  return `${STORAGE_KEY}_${language}`
+}
+
+export const loadSlidesFromStorage = (): Slide[] | null => {
+  if (typeof window === 'undefined') return null
+  const stored = localStorage.getItem(getStorageKey())
+  return stored ? JSON.parse(stored) : null
+}
+
+export const saveSlidesToStorage = (slides: Slide[]) => {
+  if (typeof window === 'undefined') return
+  localStorage.setItem(getStorageKey(), JSON.stringify(slides))
+}
+
 export const useSlideStore = create<SlideState>((set, get) => ({
   currentSlide: 0,
   totalSlides: 0,
@@ -43,7 +62,10 @@ export const useSlideStore = create<SlideState>((set, get) => ({
   }),
   slides: [],
   setTotalSlides: (total: number) => set({ totalSlides: total } as Partial<SlideState>),
-  setSlides: (slides: Slide[]) => set({ slides } as Partial<SlideState>),
+  setSlides: (slides: Slide[]) => {
+    set({ slides } as Partial<SlideState>)
+    saveSlidesToStorage(slides)
+  },
   getCurrentSlideContent: () => {
     const state = get()
     return state.slides[state.currentSlide] || null
@@ -57,6 +79,7 @@ export const useSlideStore = create<SlideState>((set, get) => ({
         title
       }
       set({ slides: updatedSlides })
+      saveSlidesToStorage(updatedSlides)
     }
   },
   updateCurrentSlideDescription: (description: string) => {
@@ -68,6 +91,7 @@ export const useSlideStore = create<SlideState>((set, get) => ({
         description
       }
       set({ slides: updatedSlides })
+      saveSlidesToStorage(updatedSlides)
     }
   },
   updateSlideBlock: (blockId: string, updates: Partial<SlideBlock>) => {
@@ -90,6 +114,7 @@ export const useSlideStore = create<SlideState>((set, get) => ({
         }
         
         set({ slides: updatedSlides })
+        saveSlidesToStorage(updatedSlides)
       }
     }
   }
