@@ -4,6 +4,7 @@ import { Square, Loader2 } from "lucide-react"
 import { useState, KeyboardEvent, useEffect } from "react"
 import { useLanguageStore } from "@/hooks/use-language-store"
 import { translations } from "@/lib/translations"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface BroadcastButtonProps {
   isSessionActive: boolean
@@ -17,6 +18,7 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
   const [isLoading, setIsLoading] = useState(false)
   const { language } = useLanguageStore()
   const t = translations[language]
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (!dataChannel) {
@@ -112,6 +114,22 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
     )
   }
 
+  // Mobile version - only show stop button when session is active
+  if (isMobile) {
+    return (
+      <Button
+        variant="destructive"
+        onClick={onClick}
+        className="py-6 px-8 text-lg font-medium"
+        aria-label={t.buttons.stop}
+      >
+        <Square className="h-5 w-5 mr-2" />
+        {t.buttons.stop}
+      </Button>
+    )
+  }
+
+  // Desktop version with text input
   return (
     <div className="flex gap-2 w-full" dir={language === 'he' ? 'rtl' : 'ltr'}>
       <Input
