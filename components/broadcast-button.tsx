@@ -87,6 +87,38 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
     }
   }
 
+  if (isMobile) {
+    return (
+      <Button
+        variant={isSessionActive ? "destructive" : "default"}
+        className="w-full py-6 text-lg font-medium flex items-center justify-center gap-2"
+        onClick={async () => {
+          setIsLoading(true)
+          try {
+            await onClick()
+          } finally {
+            setIsLoading(false)
+          }
+        }}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <>
+            <Loader2 className="h-5 w-5 animate-spin" />
+            {t.buttons.starting}
+          </>
+        ) : isSessionActive ? (
+          <>
+            <Square className="h-5 w-5" />
+            {t.buttons.stop}
+          </>
+        ) : (
+          t.buttons.start
+        )}
+      </Button>
+    )
+  }
+
   if (!isSessionActive) {
     return (
       <Button
@@ -110,21 +142,6 @@ export function BroadcastButton({ isSessionActive, onClick, dataChannel }: Broad
         ) : (
           t.buttons.start
         )}
-      </Button>
-    )
-  }
-
-  // Mobile version - only show stop button when session is active
-  if (isMobile) {
-    return (
-      <Button
-        variant="destructive"
-        onClick={onClick}
-        className="py-6 px-8 text-lg font-medium"
-        aria-label={t.buttons.stop}
-      >
-        <Square className="h-5 w-5 mr-2" />
-        {t.buttons.stop}
       </Button>
     )
   }

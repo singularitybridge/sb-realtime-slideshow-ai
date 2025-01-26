@@ -39,34 +39,35 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="flex items-center justify-between px-4 py-4 max-w-lg mx-auto">
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setLanguage(language === 'en' ? 'he' : 'en')}
-              className="rounded-full"
-            >
-              <LanguageIcon className="w-5 h-5" />
-            </Button>
-            <MuteButton audioStream={audioStreamRef.current} />
-          </div>
+        <div className="px-4 py-4 max-w-lg mx-auto">
+          <div className="flex flex-col gap-2 w-full">
+            {/* Controls Row */}
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setLanguage(language === 'en' ? 'he' : 'en')}
+                className="rounded-full"
+              >
+                <LanguageIcon className="w-5 h-5" />
+              </Button>
+              <MuteButton audioStream={audioStreamRef.current} />
+            </div>
 
-          <div className="flex flex-col items-center gap-2">
-            {status && (
-              <div className="text-sm">
-                <StatusDisplay status={status} />
-              </div>
-            )}
-            <BroadcastButton 
-              isSessionActive={isSessionActive} 
-              onClick={handleStartStopClick}
-              dataChannel={dataChannelRef.current}
-            />
+            {/* Status and Full-width Button */}
+            <div className="w-full">
+              {status && (
+                <div className="text-sm text-center mb-2">
+                  <StatusDisplay status={status} />
+                </div>
+              )}
+              <BroadcastButton 
+                isSessionActive={isSessionActive} 
+                onClick={handleStartStopClick}
+                dataChannel={dataChannelRef.current}
+              />
+            </div>
           </div>
-
-          {/* Spacer to balance the layout */}
-          <div className="w-[88px]" /> 
         </div>
 
         {/* Safe Area Padding for Mobile */}
