@@ -41,7 +41,7 @@ export default function DevPortalPage() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="w-full bg-slate-50 dark:bg-slate-950">
       {/* Header with Enhanced Visual Impact */}
       <div className="border-b bg-white dark:bg-slate-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-6">
@@ -74,7 +74,7 @@ export default function DevPortalPage() {
       </div>
 
       {/* Enhanced Tab Navigation */}
-      <div className="border-b bg-white dark:bg-slate-900">
+      <div className="border-b bg-white dark:bg-slate-900 sticky top-[52px] z-40">
         <div className="max-w-7xl mx-auto px-6">
           <nav className="flex gap-1 -mb-px">
             {tabs.map((tab) => {
@@ -112,7 +112,7 @@ export default function DevPortalPage() {
       </div>
 
       {/* Content Area */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-8 pb-16">
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 10 }}

@@ -4,19 +4,18 @@ import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { translations } from '@/lib/translations';
 import { useLanguageStore } from '@/hooks/use-language-store';
-import { LanguageIcon } from '@heroicons/react/24/outline';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
-  MicrophoneIcon,
-  ArrowPathRoundedSquareIcon,
-  CommandLineIcon,
-  DocumentPlusIcon,
-  ChatBubbleBottomCenterTextIcon,
-  WrenchScrewdriverIcon,
-  PlayCircleIcon,
-  SparklesIcon,
-  CpuChipIcon,
-} from '@heroicons/react/24/outline';
+  Mic,
+  RefreshCw,
+  Terminal,
+  FilePlus,
+  MessageSquare,
+  Wrench,
+  PlayCircle,
+  Sparkles,
+  Cpu,
+} from 'lucide-react';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -34,7 +33,7 @@ interface Slide {
 
 export const SecuritySlides = () => {
   const { currentSlide, nextSlide, prevSlide, setTotalSlides, setSlides, getCurrentSlideContent } = useSlideStore();
-  const { language, setLanguage } = useLanguageStore();
+  const { language } = useLanguageStore();
   const isMobile = useIsMobile();
 
   const t = translations[language];
@@ -141,9 +140,9 @@ export const SecuritySlides = () => {
               <div className={`grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-3 gap-6'}`}>
               {getCurrentSlideContent()?.blocks.map((block, index) => {
                 const icons = [
-                  [MicrophoneIcon, ArrowPathRoundedSquareIcon, CommandLineIcon],
-                  [DocumentPlusIcon, ChatBubbleBottomCenterTextIcon, WrenchScrewdriverIcon],
-                  [PlayCircleIcon, SparklesIcon, CpuChipIcon]
+                  [Mic, RefreshCw, Terminal],
+                  [FilePlus, MessageSquare, Wrench],
+                  [PlayCircle, Sparkles, Cpu]
                 ];
                 const Icon = icons[currentSlide][index];
                 
@@ -210,16 +209,6 @@ export const SecuritySlides = () => {
         )}
 
         <div className="flex items-center gap-4">
-          {!isMobile && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setLanguage(language === 'en' ? 'he' : 'en')}
-              className="rounded-full"
-            >
-              <LanguageIcon className="w-5 h-5" />
-            </Button>
-          )}
           <Button
             onClick={nextSlide}
             variant="outline-purple"

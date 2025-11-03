@@ -5,8 +5,6 @@ import { StatusDisplay } from "@/components/status"
 import { MuteButton } from "@/components/mute-button"
 import { SecuritySlides } from "@/components/security-slides"
 import { useLanguageStore } from "@/hooks/use-language-store"
-import { LanguageIcon } from "@heroicons/react/24/outline"
-import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 
 interface MobileLayoutProps {
@@ -24,10 +22,10 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
   audioStreamRef,
   dataChannelRef,
 }) => {
-  const { language, setLanguage } = useLanguageStore()
+  const { language } = useLanguageStore()
 
   return (
-    <main className="min-h-screen relative" dir={language === 'he' ? 'rtl' : 'ltr'}>
+    <main className="relative" style={{ minHeight: 'calc(100vh - 52px)' }} dir={language === 'he' ? 'rtl' : 'ltr'}>
       {/* Main Content */}
       <div className="pb-24">
         <SecuritySlides />
@@ -43,15 +41,7 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
         <div className="px-4 py-4 max-w-lg mx-auto">
           <div className="flex flex-col gap-2 w-full">
             {/* Controls Row */}
-            <div className="flex items-center justify-between">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setLanguage(language === 'en' ? 'he' : 'en')}
-                className="rounded-full"
-              >
-                <LanguageIcon className="w-5 h-5" />
-              </Button>
+            <div className="flex items-center justify-end">
               <MuteButton audioStream={audioStreamRef.current} />
             </div>
 

@@ -11,7 +11,7 @@ export default {
   theme: {
   	extend: {
       fontFamily: {
-        sans: ["var(--font-raleway)"],
+        sans: ["var(--font-heebo)"],
       },
   		colors: {
   			background: 'hsl(var(--background))',

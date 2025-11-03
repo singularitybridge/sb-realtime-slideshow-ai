@@ -16,6 +16,8 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import { ArrowLeft, Network, GitBranch, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const initialNodes: Node[] = [
   {
@@ -141,16 +143,16 @@ export default function DiagramsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       {/* Header */}
       <header className="border-b border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center gap-4 mb-4">
-            <Link
-              href="/dev-portal/docs"
-              className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
+            <Link href="/dev-portal/docs">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Back to Docs
+              </Button>
             </Link>
             <div className="flex items-center gap-3">
               <Network className="w-8 h-8" />
@@ -161,20 +163,20 @@ export default function DiagramsPage() {
             Drag nodes to rearrange, zoom and pan to explore the architecture
           </p>
           <div className="flex gap-2 mt-4 ml-[60px]">
-            <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm flex items-center gap-1">
+            <Badge variant="secondary" className="gap-1">
               <GitBranch className="w-3 h-3" />
               React Flow
-            </span>
-            <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm flex items-center gap-1">
+            </Badge>
+            <Badge variant="secondary" className="gap-1">
               <Zap className="w-3 h-3" />
               Interactive
-            </span>
+            </Badge>
           </div>
         </div>
       </header>
 
       {/* Diagram Container */}
-      <div className="w-full" style={{ height: 'calc(100vh - 180px)' }}>
+      <div className="w-full" style={{ height: 'calc(100vh - 232px)' }}>
         <ReactFlow
           nodes={nodes}
           edges={edges}

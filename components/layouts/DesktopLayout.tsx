@@ -36,7 +36,7 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = ({
   const t = translations[language]
 
   return (
-    <main className="h-screen p-8" dir={language === 'he' ? 'rtl' : 'ltr'}>
+    <main className="p-8" style={{ height: 'calc(100vh - 52px)' }} dir={language === 'he' ? 'rtl' : 'ltr'}>
       <div className="h-full grid grid-cols-3 gap-8">
         <motion.div 
           className="col-span-2 overflow-hidden"

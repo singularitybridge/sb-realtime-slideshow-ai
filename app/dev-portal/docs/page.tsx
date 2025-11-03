@@ -102,7 +102,7 @@ export default function DocsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+      <header className="sticky top-[52px] z-40 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/dev-portal">
             <Button variant="ghost" size="sm" className="gap-2">
@@ -122,10 +122,10 @@ export default function DocsPage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 pt-20 pb-12">
+      <div className="container mx-auto px-4 py-8 pb-16">
         <div className="flex gap-8">
           {/* Sidebar - Desktop */}
-          <aside className="hidden md:block w-64 sticky top-24 h-fit">
+          <aside className="hidden md:block w-64 sticky top-[140px] h-fit">
             <nav className="space-y-1">
               {sections.map((section) => {
                 const Icon = section.icon
@@ -151,7 +151,7 @@ export default function DocsPage() {
           {/* Sidebar - Mobile */}
           {sidebarOpen && (
             <div className="md:hidden fixed inset-0 z-40 bg-black/50" onClick={() => setSidebarOpen(false)}>
-              <div className="fixed left-0 top-20 bottom-0 w-64 bg-white shadow-xl p-4" onClick={(e) => e.stopPropagation()}>
+              <div className="fixed left-0 top-[108px] bottom-0 w-64 bg-white shadow-xl p-4" onClick={(e) => e.stopPropagation()}>
                 <nav className="space-y-1">
                   {sections.map((section) => {
                     const Icon = section.icon
@@ -179,7 +179,7 @@ export default function DocsPage() {
           {/* Main Content */}
           <main className="flex-1 max-w-4xl">
             {/* Overview */}
-            <section id="overview" className="mb-16 scroll-mt-24">
+            <section id="overview" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Overview</h2>
 
               <Card className="p-6 mb-6 bg-gradient-to-br from-slate-50 to-white border-slate-200">
@@ -279,7 +279,7 @@ export default function DocsPage() {
             </section>
 
             {/* Architecture */}
-            <section id="architecture" className="mb-16 scroll-mt-24">
+            <section id="architecture" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Architecture</h2>
 
               <Card className="p-6 mb-6 border-slate-200">
@@ -527,7 +527,7 @@ export default function DocsPage() {
             </section>
 
             {/* Claude Agents */}
-            <section id="claude-agents" className="mb-16 scroll-mt-24">
+            <section id="claude-agents" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Claude Agents</h2>
 
               <Card className="p-6 mb-6 border-slate-200">
@@ -614,7 +614,7 @@ export default function DocsPage() {
             </section>
 
             {/* Components */}
-            <section id="components" className="mb-16 scroll-mt-24">
+            <section id="components" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Components</h2>
 
               <div className="space-y-4">
@@ -727,7 +727,7 @@ export default function DocsPage() {
             </section>
 
             {/* Hooks */}
-            <section id="hooks" className="mb-16 scroll-mt-24">
+            <section id="hooks" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Hooks</h2>
 
               <div className="space-y-4">
@@ -791,7 +791,7 @@ const isMobile = useIsMobile()
             </section>
 
             {/* API Routes */}
-            <section id="api-routes" className="mb-16 scroll-mt-24">
+            <section id="api-routes" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">API Routes</h2>
 
               <Card className="p-6 mb-6 border-slate-200">
@@ -887,7 +887,7 @@ const tools = [
             </section>
 
             {/* Configuration */}
-            <section id="configuration" className="mb-16 scroll-mt-24">
+            <section id="configuration" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Configuration</h2>
 
               <Card className="p-6 mb-6 border-slate-200">
@@ -936,7 +936,7 @@ export const siteConfig = {
             </section>
 
             {/* Local Development */}
-            <section id="local-development" className="mb-16 scroll-mt-24">
+            <section id="local-development" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Local Development</h2>
 
               <Card className="p-6 mb-6 border-slate-200">
@@ -1086,7 +1086,7 @@ OPENAI_API_KEY=sk-proj-your-api-key-here
             </section>
 
             {/* Deployment */}
-            <section id="deployment" className="mb-16 scroll-mt-24">
+            <section id="deployment" className="mb-16 scroll-mt-[140px]">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Deployment</h2>
 
               <Card className="p-6 mb-6 border-slate-200">
