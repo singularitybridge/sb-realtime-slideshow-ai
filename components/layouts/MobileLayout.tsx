@@ -7,6 +7,7 @@ import { SecuritySlides } from "@/components/security-slides"
 import { useLanguageStore } from "@/hooks/use-language-store"
 import { LanguageIcon } from "@heroicons/react/24/outline"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
 
 interface MobileLayoutProps {
   status: string
@@ -61,11 +62,29 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
                   <StatusDisplay status={status} />
                 </div>
               )}
-              <BroadcastButton 
-                isSessionActive={isSessionActive} 
-                onClick={handleStartStopClick}
-                dataChannel={dataChannelRef.current}
-              />
+              
+              {/* Avatar and Button Container */}
+              <div className="flex items-center gap-3">
+                {/* Avatar Section */}
+                <div className="flex flex-col items-center gap-1 bg-white/50 px-3 py-2 rounded-lg">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src="/avatars/jacqueline-avatar.png" alt="Jacqueline" />
+                  </Avatar>
+                  <div className="text-center">
+                    <h3 className="text-sm font-medium leading-none">Jacqueline</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5 hidden sm:block">ai buddy</p>
+                  </div>
+                </div>
+
+                {/* Broadcast Button */}
+                <div className="flex-1">
+                  <BroadcastButton 
+                    isSessionActive={isSessionActive} 
+                    onClick={handleStartStopClick}
+                    dataChannel={dataChannelRef.current}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

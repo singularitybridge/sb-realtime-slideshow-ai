@@ -31,6 +31,7 @@ export default function RootLayout({
           "min-h-dvh bg-background font-sans antialiased",
           raleway.variable
         )}
+        suppressHydrationWarning
       >
         <div className="relative flex min-h-dvh flex-col bg-background items-center">
           <Header />
