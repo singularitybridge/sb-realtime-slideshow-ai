@@ -41,10 +41,10 @@ export default function DevPortalPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-950">
       {/* Header with Enhanced Visual Impact */}
       <div className="border-b bg-white dark:bg-slate-900 shadow-sm">
-        <div className="container mx-auto px-6 py-6">
+        <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <Link href="/">
@@ -75,7 +75,7 @@ export default function DevPortalPage() {
 
       {/* Enhanced Tab Navigation */}
       <div className="border-b bg-white dark:bg-slate-900">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <nav className="flex gap-1 -mb-px">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -112,7 +112,7 @@ export default function DevPortalPage() {
       </div>
 
       {/* Content Area */}
-      <div className="container mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 10 }}

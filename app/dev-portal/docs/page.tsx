@@ -299,6 +299,171 @@ export default function DocsPage() {
                 </ul>
               </Card>
 
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-slate-800 mb-4">Project Structure</h3>
+                <p className="text-slate-600 mb-4">Overview of the project folder organization:</p>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {/* App Router */}
+                  <Card className="p-4 border-slate-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">App Router</Badge>
+                      <span className="text-sm font-mono text-slate-600">/app</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="pl-4 border-l-2 border-blue-200">
+                        <div className="text-slate-700 font-medium">page.tsx</div>
+                        <div className="text-slate-500">Main application page</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-blue-200">
+                        <div className="text-slate-700 font-medium">layout.tsx</div>
+                        <div className="text-slate-500">Root layout</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-blue-200">
+                        <div className="text-slate-700 font-medium">api/session/</div>
+                        <div className="text-slate-500">OpenAI session endpoint</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-blue-200">
+                        <div className="text-slate-700 font-medium">dev-portal/</div>
+                        <div className="text-slate-500">Developer portal pages</div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Components */}
+                  <Card className="p-4 border-slate-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className="bg-green-100 text-green-700 hover:bg-green-100">Components</Badge>
+                      <span className="text-sm font-mono text-slate-600">/components</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="pl-4 border-l-2 border-green-200">
+                        <div className="text-slate-700 font-medium">layouts/</div>
+                        <div className="text-slate-500">Desktop & mobile layouts</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-green-200">
+                        <div className="text-slate-700 font-medium">security-slides.tsx</div>
+                        <div className="text-slate-500">Main slideshow component</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-green-200">
+                        <div className="text-slate-700 font-medium">broadcast-button.tsx</div>
+                        <div className="text-slate-500">Session controls</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-green-200">
+                        <div className="text-slate-700 font-medium">ui/</div>
+                        <div className="text-slate-500">shadcn/ui components</div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Hooks */}
+                  <Card className="p-4 border-slate-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className="bg-purple-100 text-purple-700 hover:bg-purple-100">Hooks</Badge>
+                      <span className="text-sm font-mono text-slate-600">/hooks</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="pl-4 border-l-2 border-purple-200">
+                        <div className="text-slate-700 font-medium">use-slides-store.ts</div>
+                        <div className="text-slate-500">Slide state (Zustand)</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-purple-200">
+                        <div className="text-slate-700 font-medium">use-language-store.ts</div>
+                        <div className="text-slate-500">Language state</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-purple-200">
+                        <div className="text-slate-700 font-medium">use-webrtc.ts</div>
+                        <div className="text-slate-500">WebRTC session</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-purple-200">
+                        <div className="text-slate-700 font-medium">use-mobile.ts</div>
+                        <div className="text-slate-500">Mobile detection</div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Libraries */}
+                  <Card className="p-4 border-slate-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100">Libraries</Badge>
+                      <span className="text-sm font-mono text-slate-600">/lib</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="pl-4 border-l-2 border-amber-200">
+                        <div className="text-slate-700 font-medium">translations.ts</div>
+                        <div className="text-slate-500">i18n translations</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-amber-200">
+                        <div className="text-slate-700 font-medium">utils.ts</div>
+                        <div className="text-slate-500">Helper functions</div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Public Assets */}
+                  <Card className="p-4 border-slate-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className="bg-rose-100 text-rose-700 hover:bg-rose-100">Assets</Badge>
+                      <span className="text-sm font-mono text-slate-600">/public</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="pl-4 border-l-2 border-rose-200">
+                        <div className="text-slate-700 font-medium">avatars/</div>
+                        <div className="text-slate-500">AI avatar images</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-rose-200">
+                        <div className="text-slate-700 font-medium">*.png</div>
+                        <div className="text-slate-500">Architecture diagrams</div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Claude Config */}
+                  <Card className="p-4 border-slate-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className="bg-indigo-100 text-indigo-700 hover:bg-indigo-100">Claude Config</Badge>
+                      <span className="text-sm font-mono text-slate-600">/.claude</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="pl-4 border-l-2 border-indigo-200">
+                        <div className="text-slate-700 font-medium">CLAUDE.md</div>
+                        <div className="text-slate-500">Project instructions</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-indigo-200">
+                        <div className="text-slate-700 font-medium">agents/</div>
+                        <div className="text-slate-500">Specialized sub-agents</div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Configuration Files */}
+                  <Card className="p-4 border-slate-200 md:col-span-2">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge className="bg-slate-100 text-slate-700 hover:bg-slate-100">Config Files</Badge>
+                      <span className="text-sm font-mono text-slate-600">/</span>
+                    </div>
+                    <div className="grid md:grid-cols-4 gap-2 text-sm">
+                      <div className="pl-4 border-l-2 border-slate-200">
+                        <div className="text-slate-700 font-medium">next.config.ts</div>
+                        <div className="text-slate-500">Next.js config</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-slate-200">
+                        <div className="text-slate-700 font-medium">tailwind.config.ts</div>
+                        <div className="text-slate-500">Tailwind config</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-slate-200">
+                        <div className="text-slate-700 font-medium">tsconfig.json</div>
+                        <div className="text-slate-500">TypeScript config</div>
+                      </div>
+                      <div className="pl-4 border-l-2 border-slate-200">
+                        <div className="text-slate-700 font-medium">package.json</div>
+                        <div className="text-slate-500">Dependencies</div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+
               <Card className="p-6 mb-6 border-slate-200">
                 <h3 className="text-xl font-semibold text-slate-800 mb-4">Component Hierarchy</h3>
                 <CodeBlock code={`app/
