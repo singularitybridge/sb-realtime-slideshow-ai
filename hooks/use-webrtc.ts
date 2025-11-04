@@ -295,8 +295,14 @@ export default function useWebRTCAudioSession(
    */
   async function handleDataChannelMessage(event: MessageEvent) {
     try {
+      // Log raw data for debugging
+      if (typeof event.data !== 'string') {
+        console.warn("Non-string data received:", event.data);
+        return;
+      }
+
       const msg = JSON.parse(event.data) as WebRTCMessage;
-      
+
       // Validate message
       if (!isValidMessage(msg)) {
         console.warn("Invalid message received:", msg);
@@ -509,6 +515,9 @@ export default function useWebRTCAudioSession(
       return msg;
     } catch (error) {
       console.error("Error handling data channel message:", error);
+      if (error instanceof SyntaxError && event?.data) {
+        console.error("Problematic data:", event.data.substring(0, 200));
+      }
     }
   }
 
