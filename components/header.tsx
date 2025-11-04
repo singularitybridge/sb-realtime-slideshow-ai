@@ -42,7 +42,7 @@ export function Header() {
             {languages.map((lang) => (
               <DropdownMenuItem
                 key={lang.code}
-                onClick={() => setLanguage(lang.code as 'en' | 'he' | 'ar')}
+                onClick={() => setLanguage(lang.code as 'en' | 'he')}
                 className={language === lang.code ? 'bg-accent' : ''}
               >
                 <span className="mr-2">{lang.flag}</span>

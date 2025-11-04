@@ -21,6 +21,7 @@ import {
 import Link from 'next/link'
 import { SystemArchitectureDiagram } from '@/components/diagrams/system-architecture-diagram'
 import { ClaudeAgentsDiagram } from '@/components/diagrams/claude-agents-diagram'
+import { DocsChatButton } from '@/components/docs-chat-button'
 
 const sections = [
   { id: 'overview', label: 'Overview', icon: BookOpen },
@@ -1286,6 +1287,9 @@ sudo systemctl enable slideshow-ai`} />
           </main>
         </div>
       </div>
+
+      {/* Floating Docs Chat Button */}
+      <DocsChatButton />
     </div>
   )
 }

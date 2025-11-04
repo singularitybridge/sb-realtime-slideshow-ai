@@ -101,8 +101,10 @@ type TextFunction = (args: { text: string }) => Promise<ToolResult> | ToolResult
 type TitleFunction = (args: { title: string }) => Promise<ToolResult> | ToolResult;
 type DescriptionFunction = (args: { description: string }) => Promise<ToolResult> | ToolResult;
 type BlockFunction = (args: { blockId: string, title?: string, content?: string }) => Promise<ToolResult> | ToolResult;
+type QueryFunction = (args: { query: string }) => Promise<ToolResult> | ToolResult;
+type SectionIdFunction = (args: { sectionId: string }) => Promise<ToolResult> | ToolResult;
 
-type ToolFunction = NoArgFunction | UrlFunction | TextFunction | TitleFunction | DescriptionFunction | BlockFunction;
+type ToolFunction = NoArgFunction | UrlFunction | TextFunction | TitleFunction | DescriptionFunction | BlockFunction | QueryFunction | SectionIdFunction;
 
 /**
  * The return type for the hook, matching Approach A
@@ -130,6 +132,7 @@ export default function useWebRTCAudioSession(
   voice: string,
   tools?: Tool[],
   instructions?: string,
+  sessionEndpoint: string = "/api/session",
 ): UseWebRTCAudioSessionReturn {
   // Connection/session states
   const [status, setStatus] = useState("");
@@ -514,7 +517,7 @@ export default function useWebRTCAudioSession(
    */
   async function getEphemeralToken() {
     try {
-      const response = await fetch("/api/session", {
+      const response = await fetch(sessionEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
